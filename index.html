@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BillionTests — Lab-grade health screening in 20 seconds, on any phone</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+tailwind.config={theme:{extend:{
+  fontFamily:{display:['Fraunces','serif'],sans:['Inter','sans-serif']},
+  colors:{paper:'#F3F7FC',ink:'#0A1930',teal:'#1465C0',tealdeep:'#0B3D75',cyan:'#38BDF8',mist:'#122A4D',stone:'#A9B9D6'}
+}}}
+</script>
+<style>
+  html{scroll-behavior:smooth}
+  body{background:#0A1930}
+  .disp{font-family:'Fraunces',serif}
+  .lab{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+  .grain{background-image:radial-gradient(#ffffff14 1px,transparent 1px);background-size:16px 16px}
+  .u-link{position:relative}
+  .u-link::after{content:'';position:absolute;left:0;bottom:-2px;width:0;height:1.5px;background:currentColor;transition:width .3s ease}
+  .u-link:hover::after,.u-link.active::after{width:100%}
+  ::selection{background:#1465C0;color:#fff}
+  :focus-visible{outline:2px solid #1465C0;outline-offset:3px}
+  .sec{padding-block:clamp(84px,11vw,144px)}
+  .rv{opacity:0;transform:translateY(30px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
+  .rv.in{opacity:1;transform:none}
+  .rv-d1{transition-delay:.09s}.rv-d2{transition-delay:.18s}.rv-d3{transition-delay:.27s}.rv-d4{transition-delay:.4s}
+  .lmask{overflow:hidden}
+  .lmask>span{display:block;transform:translateY(105%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
+  .lmask.in>span{transform:none}
+  .lmask.d1>span{transition-delay:.12s}.lmask.d2>span{transition-delay:.24s}
+  #prog{position:fixed;top:0;left:0;height:3px;width:0;background:#1465C0;z-index:60;transition:width .1s linear}
+  #nav{transition:box-shadow .3s,background .3s}
+  #nav.scrolled{background:rgba(10,25,48,.85);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(255,255,255,.08)}
+  .btn{transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.45)}
+  .tnum{font-variant-numeric:tabular-nums}
+  .marquee{overflow:hidden;position:relative}
+  .marquee::before,.marquee::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+  .marquee::before{left:0;background:linear-gradient(90deg,#0A1930,transparent)}
+  .marquee::after{right:0;background:linear-gradient(270deg,#0A1930,transparent)}
+  .marquee-track{display:flex;width:max-content;animation:scroll 26s linear infinite}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .mig{transition:background .3s,padding-left .3s}
+  .mig:hover{background:rgba(255,255,255,.05);padding-left:14px}
+  .panel{transition:background .35s}
+  .panel:hover{background:rgba(255,255,255,.05)}
+  .panel .picon{transition:transform .35s cubic-bezier(.16,1,.3,1)}
+  .panel:hover .picon{transform:translateY(-6px)}
+  .flink{transition:color .25s,padding-left .25s}.flink:hover{color:#F3F7FC;padding-left:6px}
+  .stat-cell{transition:background .3s}.stat-cell:hover{background:rgba(255,255,255,.05)}
+  .param{transition:background .3s,color .3s}
+  .param:hover{background:#122A4D;color:#F3F7FC}
+  .param:hover .pmuted{color:rgba(243,247,252,.85)}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}.lmask>span{transform:none;transition:none}.marquee-track{animation:none}#prog{display:none}}
+</style>
+</head>
+<body class="text-paper antialiased">
+<div id="prog"></div>
+
+<!-- ============================== QR — APP DOWNLOAD (fixed, right) ============================== -->
+<div id="qr-widget" class="fixed right-5 bottom-5 z-40 bg-mist text-paper p-4 pr-5 flex items-center gap-4 shadow-2xl border border-white/10 max-w-[280px]">
+  <button id="qr-close" aria-label="Dismiss" class="absolute -top-2.5 -right-2.5 w-6 h-6 rounded-full bg-[#F3F7FC] text-ink grid place-items-center text-xs font-bold border border-[#0A1930]/15">✕</button>
+  <div class="w-16 h-16 shrink-0 bg-white p-1.5" style="background-image:repeating-conic-gradient(#0A1930 0% 25%, #fff 0% 50%);background-size:8px 8px"></div>
+  <div>
+    <div class="lab text-teal">scan to download</div>
+    <div class="font-bold text-sm mt-1">Get the BillionTests app</div>
+  </div>
+</div>
+
+<!-- ============================== NAV ============================== -->
+<header id="nav" class="fixed top-0 inset-x-0 z-50">
+  <div class="max-w-[1240px] mx-auto px-6 h-[76px] flex items-center justify-between">
+    <a href="#top" class="disp text-2xl" style="font-weight:600">Billion<span class="text-teal">Tests</span></a>
+    <nav class="hidden lg:flex items-center gap-8 text-[15px] font-medium text-stone">
+      <a href="#how" data-nav="how" class="u-link hover:text-paper">How it works</a>
+      <a href="#card" data-nav="card" class="u-link hover:text-paper">BT Card™</a>
+      <a href="#crisis" data-nav="crisis" class="u-link hover:text-paper">The crisis</a>
+      <a href="#why" data-nav="why" class="u-link hover:text-paper">Why us</a>
+      <a href="#reveals" data-nav="reveals" class="u-link hover:text-paper">What it reveals</a>
+      <a href="#credibility" data-nav="credibility" class="u-link hover:text-paper">Credibility</a>
+      <a href="#partners" data-nav="partners" class="u-link hover:text-paper">Partners</a>
+    </nav>
+    <a href="#cta" class="btn bg-teal text-white px-6 py-3 text-[15px] font-semibold">Book a demo</a>
+  </div>
+</header>
+
+<!-- ============================== HERO ============================== -->
+<section id="top" class="grain">
+  <div class="max-w-[1240px] mx-auto px-6 pt-40 pb-24 text-center">
+    <div class="inline-block lab text-white bg-teal px-4 py-2 rounded-full mb-9 rv" style="font-size:13px">India's first universal vision-AI diagnostics platform</div>
+    <h1 class="disp leading-[0.92] text-[11.5vw] md:text-[88px]" style="font-weight:500">
+      <span class="lmask block"><span>Early detection of Kidney Disease.</span></span>
+      <span class="lmask d1 block"><span>By Lab-grade screening</span></span>
+      <span class="lmask d2 block"><span class="text-teal italic">Just in 20 seconds.</span></span>
+    </h1>
+    <p class="text-white/85 text-lg md:text-2xl max-w-2xl mx-auto mt-9 leading-relaxed rv rv-d2">Dip a strip, scan it with any smartphone,<br>Read 10+ health parameters at <span class="text-white font-semibold">98%+ accuracy</span>.<br>No waiting — test in the comfort of your home<br>Share reports with your doctor for further advice.</p>
+    <div class="mt-14 grid grid-cols-2 md:grid-cols-4 max-w-4xl mx-auto border-y-2 border-white/15 divide-x divide-white/10 rv rv-d3">
+      <div class="py-8 stat-cell"><div class="disp text-4xl md:text-6xl tnum text-teal" style="font-weight:600"><span data-count="98">0</span>%+</div><div class="lab text-stone mt-2">accuracy vs NABL</div></div>
+      <div class="py-8 stat-cell"><div class="disp text-4xl md:text-6xl tnum text-white/90" style="font-weight:600"><span data-count="20">0</span>s</div><div class="lab text-stone mt-2">to a result</div></div>
+      <div class="py-8 stat-cell"><div class="disp text-4xl md:text-6xl tnum text-white/90" style="font-weight:600"><span data-count="10">0</span>+</div><div class="lab text-stone mt-2">parameters read</div></div>
+      <div class="py-8 stat-cell"><div class="disp text-4xl md:text-6xl tnum text-white/90" style="font-weight:600"><span data-count="30">0</span>+</div><div class="lab text-stone mt-2">strip types</div></div>
+    </div>
+    <div class="mt-12 flex flex-wrap gap-4 justify-center rv rv-d4">
+      <a href="#cta" class="btn bg-teal text-white px-9 py-4 text-base font-semibold">Book a demo →</a>
+      <a href="#how" class="btn border-2 border-white/20 px-9 py-4 text-base font-semibold bg-white/5 text-paper">See how it works</a>
+    </div>
+    <div class="lab text-stone mt-8 rv rv-d4">Made in India · Patent filed · Validated at NABL-accredited City Imaging, Delhi</div>
+  </div>
+
+  <div class="mb-24 border-y border-white/10 py-6 marquee rv">
+    <div class="marquee-track">
+      <div class="flex items-center gap-10 px-5 lab text-stone text-[13px] whitespace-nowrap">
+        <span>IIT Kanpur · COE-AI</span><span class="text-teal">✦</span><span>GIMS Greater Noida</span><span class="text-teal">✦</span><span>City Imaging · NABL</span><span class="text-teal">✦</span><span>MedTech Mitra · GoI</span><span class="text-teal">✦</span><span>Prompt Dairy Tech</span><span class="text-teal">✦</span>
+      </div>
+      <div class="flex items-center gap-10 px-5 lab text-stone text-[13px] whitespace-nowrap" aria-hidden="true">
+        <span>IIT Kanpur · COE-AI</span><span class="text-teal">✦</span><span>GIMS Greater Noida</span><span class="text-teal">✦</span><span>City Imaging · NABL</span><span class="text-teal">✦</span><span>MedTech Mitra · GoI</span><span class="text-teal">✦</span><span>Prompt Dairy Tech</span><span class="text-teal">✦</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== HOW IT WORKS ============================== -->
+<section id="how" class="bg-ink text-paper sec">
+  <div class="max-w-[880px] mx-auto px-6">
+    <div class="lab text-teal rv">The method</div>
+    <h2 class="disp text-5xl md:text-7xl mt-5 rv rv-d1" style="font-weight:600">Dip. Scan. Interpret.</h2>
+    <p class="text-white/60 text-lg md:text-xl max-w-2xl mt-6 rv rv-d1">One-click operation. No clinical medical training.<br>Works at a home, a health camp, or a remote village.</p>
+  </div>
+  <div class="max-w-[1520px] mx-auto px-6">
+    <div class="grid md:grid-cols-3 gap-4 mt-16">
+      <div class="bg-[#122A4D] border border-white/10 p-10 rv">
+        <div class="disp text-[110px] leading-none text-white/25" style="font-weight:600">1</div>
+        <h3 class="disp text-3xl mt-5 text-white">Dip</h3>
+        <p class="text-white/75 text-base mt-3 leading-relaxed">Dip any government-approved strip in a fresh urine sample. Any time of day — first-morning sample not required.</p>
+        <div class="mt-6 aspect-[4/3] rounded-xl border border-white/10 bg-white overflow-hidden flex items-center justify-center p-2"><img src="step1-dip-real.jpeg" alt="Applying urine to the test strip" class="w-full h-full object-cover rounded-lg"></div>
+      </div>
+      <div class="bg-[#122A4D] border border-white/10 p-10 md:mt-6 rv rv-d1">
+        <div class="disp text-[110px] leading-none text-white/25" style="font-weight:600">2</div>
+        <h3 class="disp text-3xl mt-5 text-white">Scan</h3>
+        <p class="text-white/75 text-base mt-3 leading-relaxed">Place it on the BT Card™ and scan with a phone camera. Lighting, glare, angle &amp; sensor variance auto-corrected.</p>
+        <div class="mt-6 aspect-[4/3] rounded-xl border border-white/10 bg-white/[0.05] overflow-hidden flex items-center justify-center p-2"><img src="step2-scan-real.jpeg" alt="Scanning the strip on the BT Card™ with a phone" class="w-full h-full object-cover rounded-lg"></div>
+      </div>
+      <div class="bg-[#0F3D6E] border border-teal/40 p-10 md:mt-8 rv rv-d2">
+        <div class="disp text-[110px] leading-none" style="font-weight:600;color:#1465C0">3</div>
+        <h3 class="disp text-3xl mt-5 text-white">Interpret</h3>
+        <p class="text-white/80 text-base mt-3 leading-relaxed">Vision-AI reads 10+ parameters in under 20 seconds and saves a tamper-proof, blockchain-verified report.</p>
+        <div class="mt-6 aspect-[4/3] rounded-xl border border-teal/30 bg-white overflow-hidden flex items-center justify-center p-2"><img src="step3-result-real.jpeg" alt="Urine wellness report with results chart" class="w-full h-full object-cover rounded-lg"></div>
+      </div>
+    </div>
+    <p class="text-white/60 text-lg md:text-xl max-w-2xl mt-10 leading-relaxed rv rv-d3">Every result is saved, so you can easily keep track of your test results over time — and identify trends or patterns that may be affecting your health.</p>
+  </div>
+</section>
+
+<!-- ============================== BT CARD INNOVATION ============================== -->
+<section id="card" class="pt-16 pb-[clamp(84px,11vw,144px)] bg-ink text-paper">
+  <div class="max-w-[1240px] mx-auto px-6 grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+    <div>
+      <div class="lab text-teal rv">the key innovation</div>
+      <h2 class="disp text-5xl md:text-7xl mt-5 leading-[0.98] rv rv-d1" style="font-weight:600">The BT&nbsp;Card™ converts your phone into a clinical-grade scanner.</h2>
+      <p class="text-white/60 text-lg md:text-xl mt-7 leading-relaxed rv rv-d2">A proprietary reference calibration card that dynamically compensates for camera differences, ambient lighting, strip angle and manufacturer — delivering 98%+ clinical accuracy with <span class="text-white font-semibold">zero dedicated hardware</span>.</p>
+      <div class="mt-8 flex flex-wrap gap-3 rv rv-d3">
+        <span class="border border-white/15 px-4 py-2 lab text-white/70">Any camera</span>
+        <span class="border border-white/15 px-4 py-2 lab text-white/70">Any lighting</span>
+        <span class="border border-white/15 px-4 py-2 lab text-white/70">Any strip brand</span>
+        <span class="border border-white/15 px-4 py-2 lab text-white/70">No expensive hardware</span>
+        <span class="border border-white/15 px-4 py-2 lab text-white/70">No maintenance</span>
+      </div>
+    </div>
+    <div class="rv rv-d2 lg:border-l lg:border-white/10 lg:pl-20">
+      <div class="rounded-xl overflow-hidden border border-white/10 mb-8"><img src="bt-card.jpeg" alt="BT Card™ reference card for strip screening" class="w-full h-auto"></div>
+      <div class="lab text-teal">trained &amp; proven</div>
+      <div class="mt-8 divide-y divide-white/10 border-y border-white/10">
+        <div class="flex items-baseline justify-between py-6"><span class="text-white/60">Training images</span><span class="disp text-4xl md:text-5xl tnum" style="font-weight:600"><span data-count="100">0</span>K+</span></div>
+        <div class="flex items-baseline justify-between py-6"><span class="text-white/60">Clinical samples validated</span><span class="disp text-4xl md:text-5xl tnum" style="font-weight:600"><span data-count="200">0</span>+</span></div>
+        <div class="flex items-baseline justify-between py-6"><span class="text-white/60">Parameters per test</span><span class="disp text-4xl md:text-5xl tnum" style="font-weight:600"><span data-count="10">0</span>+</span></div>
+        <div class="flex items-baseline justify-between py-6"><span class="text-white/60">Readiness level</span><span class="disp text-4xl md:text-5xl" style="font-weight:600;color:#38BDF8">TRL 9</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CRISIS — FULL BLEED ============================== -->
+<section id="crisis" class="bg-teal text-white">
+  <div class="grid lg:grid-cols-[1.05fr_1fr]">
+    <div class="px-6 md:px-16 sec flex flex-col justify-between bg-tealdeep">
+      <div>
+        <div class="lab text-white/70 rv">preventable · every year in india</div>
+        <div class="disp leading-none mt-8 tnum rv rv-d1" style="font-weight:600;font-size:min(26vw,200px)"><span data-count="1.4" data-dec="1">0</span>M+</div>
+        <p class="text-white/85 text-lg md:text-2xl max-w-md mt-6 leading-relaxed rv rv-d2">avoidable deaths from conditions that are detectable — and manageable — with simple, low-cost screening. Only <span class="font-semibold text-white">12–15%</span> of rural Indians get any annual test.</p>
+      </div>
+      <div class="lab text-white/70 mt-12 rv rv-d3">10–20M DALYs lost annually to late detection</div>
+    </div>
+    <div class="px-6 md:px-16 sec rv rv-d1">
+      <div class="grid grid-cols-[1fr_auto_auto] gap-x-8 text-base md:text-lg">
+        <div class="contents lab text-white/75"><span class="py-3">Condition</span><span class="py-3 text-right">Screened</span><span class="py-3 text-right">Avoidable</span></div>
+        <div class="col-span-3 border-t border-white/25"></div>
+        <div class="contents"><span class="py-6 font-medium">Diabetes</span><span class="py-6 text-right text-white/80">20–25%</span><span class="py-6 text-right disp text-2xl md:text-3xl tnum" style="font-weight:600">400–600K</span></div>
+        <div class="col-span-3 border-t border-white/25"></div>
+        <div class="contents"><span class="py-6 font-medium">Chronic kidney</span><span class="py-6 text-right text-white/80">&lt;5%</span><span class="py-6 text-right disp text-2xl md:text-3xl tnum" style="font-weight:600">150–250K</span></div>
+        <div class="col-span-3 border-t border-white/25"></div>
+        <div class="contents"><span class="py-6 font-medium">UTI · women</span><span class="py-6 text-right text-white/80">Variable</span><span class="py-6 text-right disp text-2xl md:text-3xl tnum" style="font-weight:600">100–150K</span></div>
+        <div class="col-span-3 border-t border-white/25"></div>
+        <div class="contents"><span class="py-6 font-medium">Liver / bilirubin</span><span class="py-6 text-right text-white/80">&lt;5%</span><span class="py-6 text-right disp text-2xl md:text-3xl tnum" style="font-weight:600">10–30K</span></div>
+        <div class="col-span-3 border-t-2 border-white"></div>
+        <div class="contents"><span class="py-6 font-bold">Σ Total preventable</span><span></span><span class="py-6 text-right disp text-3xl md:text-4xl tnum" style="font-weight:600">1.4M+</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== WHY US ============================== -->
+<section id="why" class="sec grain">
+  <div class="max-w-[1240px] mx-auto px-6">
+    <div class="lab text-teal rv">why us</div>
+    <h2 class="disp text-5xl md:text-7xl mt-5 rv rv-d1" style="font-weight:600">A lab-bench analyzer,<br>replaced by an app.</h2>
+    <div class="mt-14 border-t-2 border-white/15">
+      <div class="mig grid md:grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-10 border-b border-white/10 py-8 rv"><span class="text-stone text-lg">Imported, lab-bound hardware</span><i data-lucide="arrow-right" class="w-6 h-6 text-teal justify-self-center hidden md:block"></i><span class="disp text-2xl md:text-3xl md:text-right leading-tight" style="font-weight:600">App-only or portable device<br>Made in India</span></div>
+      <div class="mig grid md:grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-10 border-b border-white/10 py-8 rv rv-d1"><span class="text-stone text-lg">Lab test · 24–48h wait</span><i data-lucide="arrow-right" class="w-6 h-6 text-teal justify-self-center hidden md:block"></i><span class="disp text-2xl md:text-3xl md:text-right leading-tight" style="font-weight:600">Instant scan<br>result in 20s</span></div>
+      <div class="mig grid md:grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-10 border-b border-white/10 py-8 rv rv-d2"><span class="text-stone text-lg">Proprietary strips, one test format</span><i data-lucide="arrow-right" class="w-6 h-6 text-teal justify-self-center hidden md:block"></i><span class="disp text-2xl md:text-3xl md:text-right leading-tight" style="font-weight:600">Any approved strip<br>30+ metrics<br>humans &amp; cattle</span></div>
+      <div class="mig grid md:grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-10 py-8 rv rv-d3"><span class="text-stone text-lg">Lab-bound · manual reading errors</span><i data-lucide="arrow-right" class="w-6 h-6 text-teal justify-self-center hidden md:block"></i><span class="disp text-2xl md:text-3xl md:text-right text-teal leading-tight" style="font-weight:600">&gt;98% AI accuracy<br>blockchain-verified</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== NON-INVASIVE — DARK ============================== -->
+<section class="bg-ink text-paper sec">
+  <div class="max-w-[1240px] mx-auto px-6">
+    <div class="max-w-3xl">
+      <div class="lab text-teal rv">vs. blood-based diagnostics</div>
+      <h2 class="disp text-5xl md:text-7xl mt-5 leading-[0.98] rv rv-d1" style="font-weight:600">No cold chain. No wait. No fuss.</h2>
+      <p class="text-white/60 text-lg md:text-xl mt-7 rv rv-d1">Blood tests need phlebotomists, sterile equipment, 2–8°C transport and fasting — a chain that breaks down constantly in rural India. Urine screening needs none of it.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-14">
+      <div class="border border-white/12 p-8 rv"><i data-lucide="stethoscope" class="w-8 h-8 text-teal"></i><div class="disp text-2xl mt-5">Early detection</div><p class="text-white/60 text-base mt-2">Catch disease before symptoms appear.</p></div>
+      <div class="border border-white/12 p-8 rv rv-d1"><i data-lucide="snowflake" class="w-8 h-8 text-teal"></i><div class="disp text-2xl mt-5">No cold chain</div><p class="text-white/60 text-base mt-2">Strips are stable at room temperature.</p></div>
+      <div class="border border-white/12 p-8 rv rv-d2"><i data-lucide="utensils-crossed" class="w-8 h-8 text-teal"></i><div class="disp text-2xl mt-5">No fasting</div><p class="text-white/60 text-base mt-2">Any-time sample — day or night.</p></div>
+      <div class="border border-white/12 p-8 rv rv-d3"><i data-lucide="house" class="w-8 h-8 text-teal"></i><div class="disp text-2xl mt-5">Test at home</div><p class="text-white/60 text-base mt-2">Share reports with your doctor for further advice.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== WHAT IT REVEALS — PARAMETER GRID ============================== -->
+<section id="reveals" class="sec grain">
+  <div class="max-w-[1240px] mx-auto px-6">
+    <div class="lab text-teal rv">what one test reveals</div>
+    <h2 class="disp text-5xl md:text-7xl mt-5 rv rv-d1" style="font-weight:600">Ten clues, one dip.</h2>
+    <div class="mt-14 border-2 border-white/15 divide-y divide-white/10 rv rv-d1">
+      <div class="param grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 p-6 md:px-10"><div class="disp text-2xl">Glucose</div><div class="pmuted text-stone text-lg self-center">Diabetes (if &gt; 180 mg/dL)</div></div>
+      <div class="param grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 p-6 md:px-10"><div class="disp text-2xl">Protein</div><div class="pmuted text-stone text-lg self-center">Kidney disease, dehydration, kidney stones</div></div>
+      <div class="param grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 p-6 md:px-10"><div class="disp text-2xl">Leukocytes</div><div class="pmuted text-stone text-lg self-center">UTI, infection, kidney stones</div></div>
+      <div class="param grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 p-6 md:px-10"><div class="disp text-2xl">Nitrites</div><div class="pmuted text-stone text-lg self-center">Bacterial infection (E. coli)</div></div>
+      <div class="param grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 p-6 md:px-10"><div class="disp text-2xl">Ketones</div><div class="pmuted text-stone text-lg self-center">Diabetes, metabolic disorders</div></div>
+      <div class="param grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 p-6 md:px-10"><div class="disp text-2xl">Bilirubin</div><div class="pmuted text-stone text-lg self-center">Early liver disease, bile duct blockage</div></div>
+      <div class="param grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 p-6 md:px-10"><div class="disp text-2xl">Urobilinogen</div><div class="pmuted text-stone text-lg self-center">Liver disease, cirrhosis, hepatitis</div></div>
+      <div class="param grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 p-6 md:px-10"><div class="disp text-2xl">Blood</div><div class="pmuted text-stone text-lg self-center">UTI, kidney stones, intense exercise</div></div>
+      <div class="param grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 p-6 md:px-10"><div class="disp text-2xl">pH · Sp. Gravity</div><div class="pmuted text-stone text-lg self-center">Stones, hydration &amp; concentration issues</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TWO WAYS TO DEPLOY ============================== -->
+<section id="deploy" class="bg-ink text-paper sec">
+  <div class="max-w-[1240px] mx-auto px-6">
+    <div class="lab text-teal rv">two ways to deploy</div>
+    <h2 class="disp text-5xl md:text-7xl mt-5 rv rv-d1" style="font-weight:600">App-only, or plug-and-play box.</h2>
+    <div class="grid md:grid-cols-2 mt-16 border border-white/10 rounded-2xl overflow-hidden">
+      <div class="p-10 md:p-12 border-b md:border-b-0 md:border-r border-white/10 rv">
+        <div class="flex items-center justify-between">
+          <i data-lucide="smartphone" class="w-9 h-9 text-teal"></i>
+          <span class="lab text-white/55">Solution 1</span>
+        </div>
+        <div class="disp text-4xl mt-6" style="font-weight:600">App-only</div>
+        <p class="text-white/60 text-base mt-3 leading-relaxed max-w-sm">Mobile App + BT Card™ — nothing to buy, nothing to carry.</p>
+        <div class="mt-8 space-y-3.5">
+          <div class="flex items-start gap-3"><i data-lucide="check" class="w-5 h-5 text-teal shrink-0 mt-0.5"></i><span class="text-white/80">Dip, place on the BT Card, scan with any Android/iOS phone</span></div>
+          <div class="flex items-start gap-3"><i data-lucide="check" class="w-5 h-5 text-teal shrink-0 mt-0.5"></i><span class="text-white/80">No expensive hardware to buy</span></div>
+          <div class="flex items-start gap-3"><i data-lucide="check" class="w-5 h-5 text-teal shrink-0 mt-0.5"></i><span class="text-white/80">Result in 20 seconds</span></div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-white/10"><span class="lab text-white/55">Best for</span><p class="text-white/80 text-sm mt-2">ASHA/ANM workers · health camps · home care · mass screening</p></div>
+      </div>
+      <div class="p-10 md:p-12 bg-[#0F3D6E] rv rv-d1">
+        <div class="flex items-center justify-between">
+          <i data-lucide="scan-line" class="w-9 h-9 text-teal"></i>
+          <span class="lab text-white/55">Solution 2</span>
+        </div>
+        <div class="disp text-4xl mt-6" style="font-weight:600">Plug &amp; play</div>
+        <p class="text-white/75 text-base mt-3 leading-relaxed max-w-sm">Edge Device — a portable scanner for high-volume sites.</p>
+        <div class="mt-8 space-y-3.5">
+          <div class="flex items-start gap-3"><i data-lucide="check" class="w-5 h-5 text-teal shrink-0 mt-0.5"></i><span class="text-white/80">Built-in optics &amp; controlled lighting</span></div>
+          <div class="flex items-start gap-3"><i data-lucide="check" class="w-5 h-5 text-teal shrink-0 mt-0.5"></i><span class="text-white/80">Unlimited scans, offline-first</span></div>
+          <div class="flex items-start gap-3"><i data-lucide="check" class="w-5 h-5 text-teal shrink-0 mt-0.5"></i><span class="text-white/80">Works anywhere, no connectivity needed</span></div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-white/10"><span class="lab text-white/55">Best for</span><p class="text-white/80 text-sm mt-2">PHCs · clinics · NGO camps · corporate wellness</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CREDIBILITY ============================== -->
+<section id="credibility" class="sec grain">
+  <div class="max-w-[1240px] mx-auto px-6">
+    <div class="text-center">
+      <div class="lab text-teal rv">validated where it counts</div>
+      <blockquote class="disp text-4xl md:text-6xl leading-[1.08] max-w-4xl mx-auto mt-8 rv rv-d1" style="font-weight:500">“Benchmarked at <span class="text-teal">98%+ accuracy</span> on 200+ real patient samples at NABL-accredited City Imaging, Delhi.”</blockquote>
+    </div>
+
+    <!-- founders + advisors -->
+    <div class="mt-20 rv rv-d1"><div class="lab text-stone">Team</div></div>
+    <div class="grid md:grid-cols-4 gap-px bg-white/10 mt-4 border-2 border-white/15 rv rv-d2">
+      <div class="md:col-span-2 bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center">
+        <div class="flex items-center gap-5"><img src="maninder.png" alt="Maninder Pal Singh Sethi" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div class="font-bold text-lg leading-snug">Maninder Pal Singh Sethi</div></div>
+        <div class="text-stone text-xs mt-4 leading-relaxed">PG in Chemistry (Hons), Punjab University · 44 years in capital-goods business development · 10 years in AI-enabled &amp; lab-testing solutions</div>
+      </div>
+      <div class="md:col-span-2 bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center">
+        <div class="flex items-center gap-5"><img src="pramod.png" alt="Pramod Prasad" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div class="font-bold text-lg leading-snug">Pramod Prasad</div></div>
+        <div class="text-stone text-xs mt-4 leading-relaxed">30+ years of technology business leadership · built $150M+ business portfolios · scaling AI-led enterprise innovation · Ex-Cisco, Motorola, Ericsson, IIFT</div>
+      </div>
+      <div class="bg-mist p-9 min-h-[110px] hover:bg-[#0F3D6E] transition-colors flex items-center"><div class="font-bold text-lg">Abhishek</div></div>
+      <div class="bg-mist p-9 min-h-[110px] hover:bg-[#0F3D6E] transition-colors flex items-center"><div class="font-bold text-lg">Alok</div></div>
+      <div class="bg-mist p-9 min-h-[110px] hover:bg-[#0F3D6E] transition-colors flex items-center gap-4"><img src="sahil-reddy.jpeg" alt="Sahil Reddy" class="w-14 h-14 rounded-full object-cover border border-white/15 shrink-0"><div class="font-bold text-lg leading-snug">Sahil Reddy</div></div>
+      <div class="bg-mist p-9 min-h-[110px] hover:bg-[#0F3D6E] transition-colors flex items-center gap-4"><img src="pranav-asthana.jpeg" alt="Pranav Asthana" class="w-14 h-14 rounded-full object-cover border border-white/15 shrink-0"><div class="font-bold text-lg leading-snug">Pranav Asthana</div></div>
+      <div class="bg-mist p-9 min-h-[110px] hover:bg-[#0F3D6E] transition-colors flex items-center gap-4"><img src="ritu-mishra.jpeg" alt="Ritu Mishra" class="w-14 h-14 rounded-full object-cover border border-white/15 shrink-0"><div class="font-bold text-lg leading-snug">Ritu Mishra</div></div>
+      <div class="bg-mist p-9 min-h-[110px] hover:bg-[#0F3D6E] transition-colors flex items-center"><div class="font-bold text-lg">Mohini Behera</div></div>
+      <div class="bg-mist p-9 min-h-[110px] hover:bg-[#0F3D6E] transition-colors flex items-center"><div class="font-bold text-lg">Amitabha Bandyopadhyay</div></div>
+      <div class="bg-mist p-9 min-h-[110px] hover:bg-[#0F3D6E] transition-colors flex items-center"><div class="font-bold text-lg">Ravi Vedururu</div></div>
+      <div class="bg-mist p-9 min-h-[110px] hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center"><div class="font-bold text-lg">Sandeep</div><div class="text-stone text-sm mt-2">IIT Bombay</div></div>
+      <div class="bg-mist p-9 min-h-[110px] hover:bg-[#0F3D6E] transition-colors flex items-center"><div class="font-bold text-lg">Neeraj Garg</div></div>
+    </div>
+
+    <!-- pedigree -->
+    <div class="mt-16 rv rv-d1"><div class="lab text-stone">Proven AI, already deployed at national scale</div></div>
+    <div class="grid md:grid-cols-3 gap-4 mt-4 rv rv-d2">
+      <div class="border border-white/15 p-8"><div class="disp text-2xl">Checko.ai</div><p class="text-stone text-base mt-2">Anti-counterfeiting AI, 1-in-a-million failure rate.</p><div class="lab text-teal mt-4">Amazon · IOCL · Delhi Excise</div></div>
+      <div class="border border-white/15 p-8"><div class="disp text-2xl">Upjao.ai</div><p class="text-stone text-base mt-2">AI grain-quality assessment across grain types.</p><div class="lab text-teal mt-4">ITC · Tata · Adani Wilmar · Reliance</div></div>
+      <div class="border border-white/15 p-8"><div class="disp text-2xl">Tracksure</div><p class="text-stone text-base mt-2">Computer-vision crate tracking for dairy networks.</p><div class="lab text-teal mt-4">Amul · Hatsun</div></div>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-x-10 gap-y-3 mt-16 lab text-stone rv rv-d3">
+      <span>Patent filed</span><span>·</span><span>Incubated at GIMS Greater Noida</span><span>·</span><span>COE-AI, IIT Kanpur</span><span>·</span><span>MedTech Mitra, GoI</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== DEMO + PARTNERS ============================== -->
+<section class="grid lg:grid-cols-2">
+  <div id="cta" class="bg-teal text-white p-6 md:p-14 sec lg:px-16 flex flex-col justify-center rv">
+    <div class="lab text-white/70">early detection · lower costs · healthier lives</div>
+    <h2 class="disp text-5xl md:text-6xl leading-[0.98] mt-5" style="font-weight:500">A billion tests<br>start with one.</h2>
+    <p class="text-white/80 text-lg mt-6 max-w-md leading-relaxed">Bring lab-grade AI diagnostics to clinics, camps, families and villages.</p>
+    <div class="mt-9 flex flex-wrap gap-4">
+      <a href="tel:+919417029446" class="btn bg-white text-ink px-8 py-4 inline-block font-bold text-base">Book a demo →</a>
+      <a href="tel:+919417029446" class="btn border-2 border-white/40 px-8 py-4 inline-block font-semibold text-base text-white">+91 94170 29446</a>
+    </div>
+    <div class="lab text-white/60 mt-7">Chief Business Officer</div>
+  </div>
+  <div id="partners" class="bg-ink text-paper p-6 md:p-14 sec lg:px-16 flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-white/10 rv rv-d1">
+    <div class="lab text-teal">our network</div>
+    <h2 class="disp text-5xl md:text-6xl leading-[0.98] mt-5" style="font-weight:600">Building the partner network.</h2>
+    <p class="text-white/60 text-lg mt-6 max-w-md leading-relaxed">We're looking for strip manufacturers, hospitals, diagnostic centres and foundations to build the screening layer with us.</p>
+    <div class="mt-9 grid grid-cols-2 gap-3 max-w-md">
+      <div class="border border-white/10 rounded-xl p-5"><i data-lucide="package" class="w-6 h-6 text-teal"></i><div class="font-semibold mt-3">Strip manufacturers</div></div>
+      <div class="border border-white/10 rounded-xl p-5"><i data-lucide="hospital" class="w-6 h-6 text-teal"></i><div class="font-semibold mt-3">Hospitals</div></div>
+      <div class="border border-white/10 rounded-xl p-5"><i data-lucide="microscope" class="w-6 h-6 text-teal"></i><div class="font-semibold mt-3">Diagnostic centres</div></div>
+      <div class="border border-white/10 rounded-xl p-5"><i data-lucide="heart-handshake" class="w-6 h-6 text-teal"></i><div class="font-semibold mt-3">Foundations</div></div>
+    </div>
+    <div class="mt-9"><a href="mailto:partnership@billiontests.com" class="btn bg-teal text-white px-8 py-4 inline-block font-bold text-base">Want to join us? →</a></div>
+  </div>
+</section>
+
+<!-- ============================== FOOTER — DARK ============================== -->
+<footer class="bg-ink text-paper">
+  <div class="max-w-[1240px] mx-auto px-6 pt-28 pb-12">
+    <div class="border-b border-white/15 pb-8 rv">
+      <div class="disp leading-none" style="font-weight:600;font-size:min(13vw,160px);color:#1C3358">Billion<span style="color:#1465C0">Tests</span></div>
+      <div class="lab text-white/40 mt-3">A Wellness Urine Strip Testing Solution</div>
+    </div>
+    <div class="flex items-center gap-4 mt-8 rv">
+      <a href="#" aria-label="LinkedIn" class="w-10 h-10 rounded-full border border-white/15 grid place-items-center text-white/60 hover:text-white hover:border-white/40 transition-colors"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a>
+      <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full border border-white/15 grid place-items-center text-white/60 hover:text-white hover:border-white/40 transition-colors"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M13.5 21v-7.8h2.62l.39-3.04h-3.01V8.24c0-.88.24-1.48 1.5-1.48h1.6V4.05C15.94 4 15.06 3.93 14.03 3.93c-2.15 0-3.62 1.31-3.62 3.72v2.5H7.78v3.05h2.63V21h3.09z"/></svg></a>
+      <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full border border-white/15 grid place-items-center text-white/60 hover:text-white hover:border-white/40 transition-colors"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="X" class="w-10 h-10 rounded-full border border-white/15 grid place-items-center text-white/60 hover:text-white hover:border-white/40 transition-colors"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M18.9 3H22l-7.5 8.57L23 21h-6.87l-5.38-6.6L4.6 21H1.5l8.02-9.17L1 3h7.05l4.87 6.03L18.9 3zm-1.2 16.17h1.7L7.4 4.75h-1.8l12.1 14.42z"/></svg></a>
+    </div>
+    <div class="grid md:grid-cols-5 gap-10 mt-12 text-base">
+      <div class="md:col-span-2 rv"><div class="font-bold text-lg">Self-diagnosis made easy.</div><p class="text-white/65 mt-3 max-w-[34ch] leading-relaxed">India's first universal AI-powered diagnostic strip-reading platform. Developed in India, built for India.</p><div class="lab text-white/30 mt-5">VisionExcl Technologies Pvt. Ltd. · Lucknow</div></div>
+      <div class="rv rv-d1"><div class="lab mb-4 text-teal">Platform</div><div class="space-y-3 text-white/70"><a href="#how" class="flink block">How it works</a><a href="#card" class="flink block">BT Card™</a><a href="#reveals" class="flink block">What it reveals</a><a href="#deploy" class="flink block">Deployment channels</a></div></div>
+      <div class="rv rv-d2"><div class="lab mb-4 text-teal">Trust</div><div class="space-y-3 text-white/70"><a href="#credibility" class="flink block">NABL validation</a><span class="flink block">Patent filed · CDSCO prep</span><span class="flink block">Blockchain-verified reports</span></div></div>
+      <div class="rv rv-d3"><div class="lab mb-4 text-teal">Contact</div><div class="space-y-3 text-white/70"><a href="mailto:info@billiontests.com" class="flink block">info@billiontests.com</a><a href="mailto:sales@billiontests.com" class="flink block">sales@billiontests.com</a><a href="mailto:collaboration@billiontests.com" class="flink block">collaboration@billiontests.com</a><a href="mailto:partnership@billiontests.com" class="flink block">partnership@billiontests.com</a><a href="mailto:mpsethi@billiontests.com" class="flink block">mpsethi@billiontests.com</a><a href="tel:+919417029446" class="flink block">Maninder Pal Singh Sethi (CBO) · +91 94170 29446</a><a href="https://billiontests.com" class="flink block">billiontests.com ↗</a></div></div>
+    </div>
+    <div class="mt-12 pt-10 border-t border-white/10 flex flex-col sm:flex-row items-center sm:items-start gap-5 rv rv-d3">
+      <div class="w-20 h-20 shrink-0 bg-white p-1.5 rounded" style="background-image:repeating-conic-gradient(#0A1930 0% 25%, #fff 0% 50%);background-size:9px 9px"></div>
+      <div class="text-center sm:text-left">
+        <div class="lab text-teal">get the app</div>
+        <div class="font-bold text-lg mt-1">Scan to download the BillionTests app</div>
+        <p class="text-white/50 text-sm mt-1 max-w-md">Screen for 10+ health parameters from your phone — no account, no waiting.</p>
+      </div>
+    </div>
+    <div class="lab text-white/30 mt-20 pt-7 border-t border-white/10 flex flex-wrap justify-between gap-3"><span>© 2026 BillionTests · VisionExcl Technologies</span><a href="#top" class="u-link">Back to top ↑</a></div>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+  document.getElementById('qr-close')?.addEventListener('click',()=>document.getElementById('qr-widget').style.display='none');
+  const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const nav=document.getElementById('nav'),prog=document.getElementById('prog');
+  addEventListener('scroll',()=>{
+    nav.classList.toggle('scrolled',scrollY>10);
+    const h=document.documentElement;
+    prog.style.width=(scrollY/(h.scrollHeight-h.clientHeight)*100)+'%';
+  },{passive:true});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll('.rv,.lmask').forEach(el=>io.observe(el));
+  const cio=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;
+    const el=e.target,target=parseFloat(el.dataset.count),dec=parseInt(el.dataset.dec||0);
+    if(rm){el.textContent=target.toFixed(dec);cio.unobserve(el);return;}
+    const t0=performance.now(),dur=1400;
+    (function tick(t){const p=Math.min((t-t0)/dur,1),ease=1-Math.pow(1-p,3);el.textContent=(target*ease).toFixed(dec);if(p<1)requestAnimationFrame(tick);})(t0);
+    cio.unobserve(el);
+  }),{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+  const links=[...document.querySelectorAll('[data-nav]')];
+  const nio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.dataset.nav===e.target.id));}}),{rootMargin:'-45% 0px -50% 0px'});
+  ['how','card','crisis','why','reveals','credibility','partners'].forEach(id=>{const s=document.getElementById(id);if(s)nio.observe(s);});
+</script>
+</body>
+</html>

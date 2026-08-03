@@ -1,0 +1,147 @@
+
+
+========== BillionTests Brochure .pdf ==========
+--- p1 ---
+World’s first universal AI platform that 
+reads any diagnostic strip — within
+with
+ accuracy
+ 20 
+seconds 
+ 98%+
+A comprehensive urine analysis 
+solution monitoring Diabetes, 
+Chronic Kidney Disease, and 8 
+additional health parameters — at 
+just ₹2,000 versus ₹1,00,000 for 
+conventional foreign strip readers
+Powered by proprietary BT Card™ 
+calibration system that dynamically 
+compensates for environmental 
+lighting and device variability, 
+delivering clinically validated 98%+ 
+accuracy
+Dip
+ Test strip in 
+urine sample
+Automated Scan
+Image acquisition through 
+mobile phone camera with 
+reference calibration BT Card™
+AI Analysis
+Interprets 10+ 
+parameters in less than 
+20 seconds
+Built for Scale
+Primary Health Centers (PHCs)
+ASHA & Anganwadi workers
+Health camps & CSR programs
+Home & elderly care
+Veterinary & dairy networks
+Uses patent-pending vision-AI 
+technology for strip reading 
+Secure records with Blockchain
+Lab-grade results |
+Validated at NABL-accredited 
+City Imaging, Delhi
+Instant Screening . Universal . Affordable . Trusted . Anywhere . Anytime
+--- p2 ---
+Origin
+Cost
+Strip Compatibility
+Expendable
+Applications
+Accuracy
+Urine analyzer machines
+Predominantly foreign brands
+₹1–2 Lakh
+Brand-specific only which and 
+costly
+Only one type of test
+Human testing only
+95%-98%
+BillionTests Mobile App
+100% made in India
+<₹ 2,000
+Any government-approved 
+test strip
+Extendable to 30+ test types
+Extendable to cattle and pets
+>98%
+To make India healthier by enabling early, affordable, and accessible 
+screening for every citizen and every village.
+Vision:
+Early detection  .  Lower costs  .   Healthier lives
+Built by Proven AI Experts
+Developed by an IIT Kanpur Alumnus  | Supported by GIMS Greater Noida
+Contact Us:
+billiontests.com
++91 9651891556 
+contact@excl.ai
+Lucknow, India
+
+
+========== sample report from app.pdf ==========
+--- p1 ---
+BillionTests
+Test Report
+Name:
+Report ID:
+harsha
+EBA9876F8IMX1B
+Age:
+Sample type:
+15 
+Urine
+Gender:
+Sample collected on:
+MALE
+21/11/2025 10:35 am
+Reference:
+Reported generated on:
+Self
+21/11/2025 10:35 am
+Urine Test Strip Analysis Report
+Urine Examination
+CHEMICAL EXAMINATION
+Investigation
+Observed Value
+Reference range
+Speciﬁc gravity (SG)
+1.020
+1.000 – 1.030
+pH
+7
+5.0 – 9.0
+Leukocytes (LEU)
+15 Leu/muL
+Negative
+Nitrite (NIT)
+Negative
+Negative
+Protein (Albumin) (PRO)
+Negative
+Negative
+Glucose (Urine) (GLU)
+Normal
+Negative
+Ketone (KET)
+Negative
+Negative / Trace
+Urobilinogen (UBG)
+Normal
+1 – 12 mg/dL
+Bilirubin (BIL)
+Negative
+Negative
+Erythrocytes/Hb (ERY/Hb)
+Negative
+Negative
+Color (COL)
+No Color
+white
+• The urine routine is a screening test.
+• Pre-test: ﬁrst-void, mid-stream urine in a clean sterile container to avoid contamination.
+• Negative nitrite does not exclude UTI; interpret with clinical picture.
+• Trace proteinuria can occur with exercise, high protein diet, etc.
+• False positives for bile pigments, proteins, glucose and nitrites may occur due to certain drugs/dyes.
