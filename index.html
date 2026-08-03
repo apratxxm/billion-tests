@@ -12,7 +12,7 @@
 <script>
 tailwind.config={theme:{extend:{
   fontFamily:{display:['Fraunces','serif'],sans:['Inter','sans-serif']},
-  colors:{paper:'#F3F7FC',ink:'#0A1930',teal:'#1465C0',tealdeep:'#0B3D75',cyan:'#38BDF8',mist:'#122A4D',stone:'#A9B9D6'}
+  colors:{paper:'#F3F7FC',ink:'#0A1930',teal:'#1E69D2',tealdeep:'#0B3D75',cyan:'#1E69D2',mist:'#122A4D',stone:'#A9B9D6'}
 }}}
 </script>
 <style>
@@ -24,8 +24,8 @@ tailwind.config={theme:{extend:{
   .u-link{position:relative}
   .u-link::after{content:'';position:absolute;left:0;bottom:-2px;width:0;height:1.5px;background:currentColor;transition:width .3s ease}
   .u-link:hover::after,.u-link.active::after{width:100%}
-  ::selection{background:#1465C0;color:#fff}
-  :focus-visible{outline:2px solid #1465C0;outline-offset:3px}
+  ::selection{background:#1E69D2;color:#fff}
+  :focus-visible{outline:2px solid #1E69D2;outline-offset:3px}
   .sec{padding-block:clamp(84px,11vw,144px)}
   .rv{opacity:0;transform:translateY(30px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
   .rv.in{opacity:1;transform:none}
@@ -34,7 +34,7 @@ tailwind.config={theme:{extend:{
   .lmask>span{display:block;transform:translateY(105%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
   .lmask.in>span{transform:none}
   .lmask.d1>span{transition-delay:.12s}.lmask.d2>span{transition-delay:.24s}
-  #prog{position:fixed;top:0;left:0;height:3px;width:0;background:#1465C0;z-index:60;transition:width .1s linear}
+  #prog{position:fixed;top:0;left:0;height:3px;width:0;background:#1E69D2;z-index:60;transition:width .1s linear}
   #nav{transition:box-shadow .3s,background .3s}
   #nav.scrolled{background:rgba(10,25,48,.85);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(255,255,255,.08)}
   .btn{transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s}
@@ -147,8 +147,8 @@ tailwind.config={theme:{extend:{
         <p class="text-white/75 text-base mt-3 leading-relaxed">Place it on the BT Card™ and scan with a phone camera. Lighting, glare, angle &amp; sensor variance auto-corrected.</p>
         <div class="mt-6 aspect-[4/3] rounded-xl border border-white/10 bg-white/[0.05] overflow-hidden flex items-center justify-center p-2"><img src="step2-scan-real.jpeg" alt="Scanning the strip on the BT Card™ with a phone" class="w-full h-full object-cover rounded-lg"></div>
       </div>
-      <div class="bg-[#0F3D6E] border border-teal/40 p-10 md:mt-8 rv rv-d2">
-        <div class="disp text-[110px] leading-none" style="font-weight:600;color:#1465C0">3</div>
+      <div class="bg-[#0F3D6E] border border-teal/40 p-10 md:mt-12 rv rv-d2">
+        <div class="disp text-[110px] leading-none" style="font-weight:600;color:#1E69D2">3</div>
         <h3 class="disp text-3xl mt-5 text-white">Interpret</h3>
         <p class="text-white/80 text-base mt-3 leading-relaxed">Vision-AI reads 10+ parameters in under 20 seconds and saves a tamper-proof, blockchain-verified report.</p>
         <div class="mt-6 aspect-[4/3] rounded-xl border border-teal/30 bg-white overflow-hidden flex items-center justify-center p-2"><img src="step3-result-real.jpeg" alt="Urine wellness report with results chart" class="w-full h-full object-cover rounded-lg"></div>
@@ -180,7 +180,7 @@ tailwind.config={theme:{extend:{
         <div class="flex items-baseline justify-between py-6"><span class="text-white/60">Training images</span><span class="disp text-4xl md:text-5xl tnum" style="font-weight:600"><span data-count="100">0</span>K+</span></div>
         <div class="flex items-baseline justify-between py-6"><span class="text-white/60">Clinical samples validated</span><span class="disp text-4xl md:text-5xl tnum" style="font-weight:600"><span data-count="200">0</span>+</span></div>
         <div class="flex items-baseline justify-between py-6"><span class="text-white/60">Parameters per test</span><span class="disp text-4xl md:text-5xl tnum" style="font-weight:600"><span data-count="10">0</span>+</span></div>
-        <div class="flex items-baseline justify-between py-6"><span class="text-white/60">Readiness level</span><span class="disp text-4xl md:text-5xl" style="font-weight:600;color:#38BDF8">TRL 9</span></div>
+        <div class="flex items-baseline justify-between py-6"><span class="text-white/60">Readiness level</span><span class="disp text-4xl md:text-5xl" style="font-weight:600;color:#1E69D2">TRL 9</span></div>
       </div>
     </div>
   </div>
@@ -358,7 +358,7 @@ tailwind.config={theme:{extend:{
       <a href="tel:+919417029446" class="btn bg-white text-ink px-8 py-4 inline-block font-bold text-base">Book a demo →</a>
       <a href="tel:+919417029446" class="btn border-2 border-white/40 px-8 py-4 inline-block font-semibold text-base text-white">+91 94170 29446</a>
     </div>
-    <div class="lab text-white/60 mt-7">Chief Business Officer</div>
+    <div class="lab text-white/60 mt-7">Maninder Pal Singh · Chief Business Officer</div>
   </div>
   <div id="partners" class="bg-ink text-paper p-6 md:p-14 sec lg:px-16 flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-white/10 rv rv-d1">
     <div class="lab text-teal">our network</div>
@@ -378,7 +378,7 @@ tailwind.config={theme:{extend:{
 <footer class="bg-ink text-paper">
   <div class="max-w-[1240px] mx-auto px-6 pt-28 pb-12">
     <div class="border-b border-white/15 pb-8 rv">
-      <div class="disp leading-none" style="font-weight:600;font-size:min(13vw,160px);color:#1C3358">Billion<span style="color:#1465C0">Tests</span></div>
+      <div class="disp leading-none" style="font-weight:600;font-size:min(13vw,160px);color:#1C3358">Billion<span style="color:#1E69D2">Tests</span></div>
       <div class="lab text-white/40 mt-3">A Wellness Urine Strip Testing Solution</div>
     </div>
     <div class="flex items-center gap-4 mt-8 rv">
