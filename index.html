@@ -165,22 +165,13 @@ tailwind.config={theme:{extend:{
     <div class="lab text-teal rv">the key innovation</div>
     <h2 class="disp text-5xl md:text-7xl mt-5 leading-[0.98] rv rv-d1" style="font-weight:600">The BTCardX™ converts your phone into a clinical-grade scanner.</h2>
 
-    <div class="mt-12 grid lg:grid-cols-[1.1fr_0.7fr_1fr] gap-8 items-start rv rv-d2">
+    <div class="mt-12 grid lg:grid-cols-2 gap-8 items-start rv rv-d2">
       <div class="rounded-xl overflow-hidden border border-white/10"><img src="bt-card.jpeg" alt="BTCardX™ reference card for strip screening" class="w-full h-auto"></div>
       <div>
         <div class="lab text-teal mb-3">watch it in action</div>
         <video controls preload="metadata" class="w-full rounded-xl border border-white/10 bg-black">
           <source src="how-to-use-demo.mp4" type="video/mp4">
         </video>
-      </div>
-      <div class="lg:border-l lg:border-white/10 lg:pl-8">
-        <div class="lab text-teal">trained &amp; proven</div>
-        <div class="mt-6 divide-y divide-white/10 border-y border-white/10">
-          <div class="flex items-baseline justify-between py-6"><span class="text-white/60">Training images</span><span class="disp text-4xl md:text-5xl tnum" style="font-weight:600"><span data-count="100">0</span>K+</span></div>
-          <div class="flex items-baseline justify-between py-6"><span class="text-white/60">Clinical samples validated</span><span class="disp text-4xl md:text-5xl tnum" style="font-weight:600"><span data-count="200">0</span>+</span></div>
-          <div class="flex items-baseline justify-between py-6"><span class="text-white/60">Parameters per test</span><span class="disp text-4xl md:text-5xl tnum" style="font-weight:600"><span data-count="10">0</span>+</span></div>
-          <div class="flex items-baseline justify-between py-6"><span class="text-white/60">Readiness level</span><span class="disp text-4xl md:text-5xl" style="font-weight:600;color:#1E69D2">TRL 9</span></div>
-        </div>
       </div>
     </div>
 
@@ -191,6 +182,16 @@ tailwind.config={theme:{extend:{
       <span class="border border-white/15 px-4 py-2 lab text-white/70">Any strip brand</span>
       <span class="border border-white/15 px-4 py-2 lab text-white/70">No expensive hardware</span>
       <span class="border border-white/15 px-4 py-2 lab text-white/70">No maintenance</span>
+    </div>
+
+    <div class="mt-14 rv rv-d3">
+      <div class="lab text-teal">trained &amp; proven</div>
+      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 border-y-2 border-white/15 divide-x divide-white/10">
+        <div class="py-8 stat-cell text-center sm:text-left sm:pl-2"><div class="disp text-4xl md:text-5xl tnum" style="font-weight:600"><span data-count="100">0</span>K+</div><div class="lab text-stone mt-2">training images</div></div>
+        <div class="py-8 stat-cell text-center sm:text-left sm:pl-8"><div class="disp text-4xl md:text-5xl tnum" style="font-weight:600"><span data-count="200">0</span>+</div><div class="lab text-stone mt-2">clinical samples validated</div></div>
+        <div class="py-8 stat-cell text-center sm:text-left sm:pl-8"><div class="disp text-4xl md:text-5xl tnum" style="font-weight:600"><span data-count="10">0</span>+</div><div class="lab text-stone mt-2">parameters per test</div></div>
+        <div class="py-8 stat-cell text-center sm:text-left sm:pl-8"><div class="disp text-4xl md:text-5xl" style="font-weight:600;color:#1E69D2">TRL 9</div><div class="lab text-stone mt-2">readiness level</div></div>
+      </div>
     </div>
   </div>
 </section>
