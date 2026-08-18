@@ -31,7 +31,7 @@ A marketing website for **BillionTests™**, VisionExcl Technologies' urine-stri
 8. **Two ways to deploy** — App-only vs. plug-and-play Edge Device.
 9. **Credibility / team** — a pull-quote stat, then four tiers: **Founders** (4, all with photo + bio), **Development Team** (4, with bios pulled from visotonics.com), **Advisors & Mentors** (8), plus institutional credibility marks.
 10. **Demo + Partners** — combined section: left half books a demo (phone + `mpsethi@billiontests.ai`), right half recruits partners (manufacturers, hospitals, diagnostic centres, foundations).
-11. **Footer** — wordmark, tagline, social icons (unlinked, see §5), link columns, contact column (email/phone/city list), App Store/Google Play badges (decorative, see §5), QR code (real, scannable), copyright.
+11. **Footer** — wordmark, tagline, social icons (unlinked, see §5), link columns, contact column (email/phone/city list), a Google Play badge (decorative, see §5 — no App Store badge, see below), QR code (real, scannable), copyright.
 
 ## 4. How to edit content
 
@@ -39,24 +39,25 @@ There is no CMS — every word, number, and email is hardcoded in the HTML. Edit
 
 - **Stats that count up on scroll** (98%+, 20s, 1.4M+, etc.) are `<span data-count="98">` elements — change the number in `data-count`, the animation picks it up automatically. `data-dec="1"` marks the one stat that shows a decimal place.
 - **Contact info** appears in three places that must be kept in sync by hand: the Demo+Partners section, the footer's Contact column, and `contact.html`'s left column. There is no single source of truth for this — a search-and-replace across all `.html` files is the safest way to change an email or phone number.
-- **Primary contact email** is `mpsethi@billiontests.ai` (Maninder's own address) — this replaced an unused generic `info@` address in August 2026. `sales@`, `collaboration@`, and `partnership@` are still listed as secondary addresses in the footer.
+- **Primary contact email** is `mpsethi@billiontests.ai` (Maninder's own address). The footer's Contact column was trimmed to just **two** addresses — `mpsethi@billiontests.ai` and `partnership@billiontests.ai` — per direct founder instruction; the earlier `sales@` and `collaboration@` addresses were removed, not just hidden.
+- **Nav spacing at laptop widths (1024–1279px)** — the desktop nav's link gap and font size step down (`gap-4`/`text-[13px]`) below the 1280px breakpoint and back up (`gap-8`/`text-[15px]`) above it, so the links never sit flush against the logo or the "Book a demo" button. If more nav links are ever added, re-check this range first — it's the tightest fit on the page.
 - **Team grid** — each tier (Founders / Development Team / Advisors & Mentors) is a CSS grid of `<div>` cells. To add someone with a photo, copy an existing photo-cell's markup as a template. Every founder-tier cell now follows the same pattern: photo + name/title row, then a bio paragraph below.
 - **Nav and footer links** are anchor links (`#how`, `#card`, `#crisis`, etc.) pointing at `id=` attributes further down the same page. Renaming a section's `id` silently breaks every link pointing at it — no error, the link just stops scrolling anywhere.
 - **Images** are referenced by plain relative filename (`abhishek.jpeg`, `qr.jpeg`, etc.) sitting next to the HTML. This means **the HTML files can't be shared on their own** — email or WhatsApp-ing just `index.html` breaks every photo. Zip the whole folder, or share a hosted link, to keep images intact.
 
 ## 5. What's real vs. placeholder right now
 
-**Real and live:** all copy and stats, the BTCardX™ photo, three how-it-works photos, all 4 founder photos+bios, 4 development-team photos+bios, 8 advisor entries, the real demo video (embedded), the real scannable QR code, phone number, primary + secondary emails.
+**Real and live:** all copy and stats, the BTCardX™ photo, three how-it-works photos, all 4 founder photos+bios, 4 development-team photos+bios, 8 advisor entries, the real demo video (embedded), the real scannable QR code, phone number, primary + secondary emails, a favicon (`favicon.svg`, a "B" monogram in the site's own palette, linked from all 4 pages).
 
 **Decorative / not functional — flagged, not hidden:**
-- **App Store / Google Play badges** in the footer are images only, not links — no real store listing exists yet for either platform.
+- **The Google Play badge** in the footer is an image only, not a link — no real Play Store listing exists yet. There is deliberately **no App Store badge** — it was removed on request since the app isn't iOS-ready yet; re-add `badge-appstore.png` (still in the folder, just unreferenced) once an iOS build exists.
 - **Social icons** (LinkedIn, Facebook, Instagram, X) in the footer all point to `#` — no real profile URLs have been provided.
 - **`contact.html`'s form** doesn't submit to any server — it opens the visitor's email client pre-filled via `mailto:`. This works but depends on the visitor having a configured email client, and produces no record on your end unless the email actually gets sent.
 
 **Known gaps, not yet addressed:**
 - **No mobile hamburger nav.** `index.html`'s nav link list is `hidden` below the 1024px breakpoint with no alternative — on a phone, a visitor sees only the logo and "Book a demo" button, with no way to jump to a section. Since phones are this product's primary audience, this is the single highest-priority fix outstanding.
 - **Priyanka Priyadarshini has no bio line** — her founder-grid cell shows photo/name/title only. No bio text has been supplied for her at any point.
-- **No page-preview metadata.** No `<meta name="description">`, no Open Graph tags, no favicon — sharing the site link in WhatsApp or elsewhere currently shows a bare URL with no title/image/blurb.
+- **No page-preview metadata.** No `<meta name="description">`, no Open Graph tags — sharing the site link in WhatsApp or elsewhere currently shows a bare URL with no title/image/blurb. (A favicon now exists — see above — but that's the browser-tab icon, not the link-preview card.)
 - **No legal pages.** No Privacy Policy or Terms of Service, despite the product handling personal health data and actively courting hospital/CSR partners who will look for this.
 - **Non-website materials untouched.** The letterhead, brochure, pitch deck, and visiting card in this folder (see §7) have never been edited as part of this work — only the 4 website pages have been. If founder feedback says "update everywhere," it has only ever been applied to the site.
 
@@ -81,10 +82,12 @@ These are the source materials the site's copy, photos, and bios were pulled fro
 | `BT_march26 (1).pptx`, `BT_march26_Original PPT.pptx`, `BT_march26_Changes suggested.pptx`, `BT_version_V3_12_08_2026.pptx` | Successive versions of the company pitch deck |
 | `BillionTests Brochure .pdf` | Print/digital brochure — **not edited as part of this work** |
 | `BillionTests_BCKIC_Proposal_v3.docx` | An earlier grant/incubation proposal document |
-| `WEBSITE CHANGES 13_08_26.docx`, `PPT ChangesUpdated (1).docx`, `BillionTests_Website_points_16-08-2026.docx` | Three rounds of written, founder-provided change requests — the authoritative source for most branding/content decisions logged in `CHANGELOG.md` |
+| `WEBSITE CHANGES 13_08_26.docx`, `PPT ChangesUpdated (1).docx`, `BillionTests_Website_points_16-08-2026.docx`, `BillionTests_WEBSITE_CHANGES_18_08_26.docx` | Four rounds of written, founder-provided change requests — the authoritative source for most branding/content decisions logged in `CHANGELOG.md` |
 | `CityImaging Certificate.pdf`, `sample report from app.pdf` | Reference/supporting documents, not currently used on the site |
 | `qr.jpeg` | The real, live QR code shown on the site |
 | `how-to-use-demo.mp4` | The real product demo video embedded in the BTCardX™ section |
+| `favicon.svg` | The site's favicon — referenced by all 4 pages |
+| `badge-appstore.png` | The App Store badge image — still in the folder but currently unreferenced by any page (see §5) |
 | `three-step-composite.jpeg`, `karan-bahuguna.jpeg`, `team-photo-unconfirmed-1/2.jpeg`, `sahil-reddy.jpeg`, `maninder.png`, `pramod.png` | Orphaned photos — superseded by newer versions or people removed from the final roster. Safe to ignore; kept rather than deleted in case they're needed again. |
 
 ## 8. Design system, in brief

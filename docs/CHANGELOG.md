@@ -89,16 +89,33 @@ Driven by a third document, `BillionTests™_Website points_16-08-2026.docx`, sh
 
 - **2026-08-17.** The original 5-file `docs/` structure (`README.md`, `01-whats-here.md`, `02-content-and-editing.md`, `03-known-gaps.md`, `04-design-language.md`, `05-run-and-ship.md`) was consolidated into **two files**: a single comprehensive `README.md` covering site structure, content editing, real-vs-placeholder status, hosting/backend, supporting files, and the design system; and this file, `CHANGELOG.md`, logging every change made from the first design brief onward. Requested directly by the founder for knowledge-transfer purposes — readable without engineering background, no unnecessary technical depth.
 
+## Phase 9 — Navbar spacing bug fix
+
+- **2026-08-18.** Founder-reported bug: "spacing and margins issue on the navbar." Verified directly against the live layout at multiple window widths — at 1024–1150px (a common laptop screen range, and the exact width where the desktop nav first turns on), the nav links had **zero pixels of gap** to both the logo and the "Book a demo" button, sitting flush against both with no breathing room. Above ~1280px the layout was fine (roughly 52px of gap on each side).
+- **Fix:** the nav's link gap and font size now step down (`gap-4`, `text-[13px]`) between 1024px and 1280px, and step back up (`gap-8`, `text-[15px]`) above 1280px via a `xl:` breakpoint. Verified via direct DOM measurement: the gap on each side of the nav went from 0px to 31px at 1024px width, with zero change to the layout at 1280px and above.
+
+## Phase 10 — Fourth feedback round: contact trim, App Store removal, favicon
+
+Driven by a fourth document, `BillionTests_WEBSITE_CHANGES_18_08_26.docx`, shared via WhatsApp Desktop, plus a direct request to add a favicon.
+
+- **2026-08-18** (uncommitted at time of writing — see `git log` for the actual commit once pushed):
+  - Fixed "Post Graduate" → "Postgraduate" in Maninder's bio line, matching the spelling style used for the other three founders.
+  - Trimmed the footer's Contact column from four email addresses down to **two**, per direct instruction: `mpsethi@billiontests.ai` and `partnership@billiontests.ai`. Removed `sales@` and `collaboration@` entirely, not just hidden.
+  - **Removed the Apple App Store badge** from the footer's "get the app" block — the founder noted the app isn't ready for iOS yet, so showing an App Store badge misrepresented availability. The Google Play badge remains as the sole download prompt; `badge-appstore.png` is left in the folder, unreferenced, for whenever an iOS build exists.
+  - Added the same hover-lighten treatment used on the founder/team cards (`hover:bg-[#0F3D6E]`) to the five "Any camera / Any lighting / Any strip brand / No expensive hardware / No maintenance" tags in the BTCardX™ section, per the founder's request to make that interaction consistent across the page.
+  - **Added a favicon** (`favicon.svg`) — a simple "B" monogram using the site's own `ink` background and `teal` accent colours, linked from all 4 pages. No favicon existed before this.
+  - Re-audited all three prior docx rounds against the live code (grepped for leftover `.AI` branding, `info@billiontests` addresses, and "Mumbai" in the address list) — confirmed zero leftovers; everything from Phases 5–7 was already correctly in place.
+
 ---
 
 ## Still open as of this entry (not yet actioned — see `README.md` §5 for current detail)
 
 - No mobile hamburger navigation on `index.html`.
-- No real App Store / Google Play listing to link the footer badges to.
+- No real App Store / Google Play listing to link the footer's Google Play badge to (and no iOS build yet to justify restoring the App Store badge).
 - No real Android app screenshots for the how-it-works cards.
 - No event/attendance photography.
 - Priyanka Priyadarshini's founder bio line is still blank — never supplied.
-- No page-preview metadata (Open Graph / Twitter Card / favicon).
+- No page-preview metadata (Open Graph / Twitter Card). A favicon now exists (Phase 10) but that's a separate thing from link-preview cards.
 - No Privacy Policy or Terms of Service.
 - Non-website materials (letterhead, brochure, pitch deck, visiting card) have never been edited as part of this work — only the 4 website HTML pages have.
 - Where the live site is actually hosted today is not documented anywhere in this project and needs to be captured from whoever owns the `billiontests.ai`/`.com` domain.
