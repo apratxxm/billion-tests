@@ -77,8 +77,8 @@ tailwind.config={theme:{extend:{
 
 <!-- ============================== NAV ============================== -->
 <header id="nav" class="fixed top-0 inset-x-0 z-50">
-  <div class="max-w-[1240px] mx-auto px-6 h-[76px] flex items-center justify-between">
-    <a href="#top" class="disp text-2xl" style="font-weight:600">Billion<span class="text-teal">Tests</span><span class="text-teal text-sm align-super">™</span></a>
+  <div class="max-w-[1240px] mx-auto px-6 h-[76px] flex items-center justify-between gap-3">
+    <a href="#top" class="disp text-xl sm:text-2xl shrink-0" style="font-weight:600">Billion<span class="text-teal">Tests</span><span class="text-teal text-sm align-super">™</span></a>
     <nav class="hidden lg:flex items-center gap-4 xl:gap-8 text-[13px] xl:text-[15px] font-medium text-stone">
       <a href="#how" data-nav="how" class="u-link hover:text-paper">How it works</a>
       <a href="#card" data-nav="card" class="u-link hover:text-paper">BTCardX™</a>
@@ -89,8 +89,24 @@ tailwind.config={theme:{extend:{
       <a href="#partners" data-nav="partners" class="u-link hover:text-paper">Partners</a>
       <a href="news.html" class="u-link hover:text-paper">News</a>
     </nav>
-    <a href="contact.html" class="btn bg-teal text-white px-6 py-3 text-[15px] font-semibold">Book a demo</a>
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+      <a href="contact.html" class="btn bg-teal text-white px-3.5 sm:px-6 py-2.5 sm:py-3 text-[13px] sm:text-[15px] font-semibold whitespace-nowrap"><span class="sm:hidden">Demo</span><span class="hidden sm:inline">Book a demo</span></a>
+      <button id="menu-toggle" aria-label="Open menu" aria-expanded="false" class="lg:hidden w-10 h-10 shrink-0 grid place-items-center border border-white/15 rounded-lg text-paper">
+        <svg id="menu-icon-open" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg id="menu-icon-close" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
   </div>
+  <nav id="mobile-nav" class="lg:hidden hidden flex-col bg-ink border-t border-white/10 max-h-[calc(100vh-76px)] overflow-y-auto">
+    <a href="#how" class="block px-6 py-4 border-b border-white/10 text-stone hover:text-paper hover:bg-white/5">How it works</a>
+    <a href="#card" class="block px-6 py-4 border-b border-white/10 text-stone hover:text-paper hover:bg-white/5">BTCardX™</a>
+    <a href="#crisis" class="block px-6 py-4 border-b border-white/10 text-stone hover:text-paper hover:bg-white/5">The crisis</a>
+    <a href="#why" class="block px-6 py-4 border-b border-white/10 text-stone hover:text-paper hover:bg-white/5">Why us</a>
+    <a href="#reveals" class="block px-6 py-4 border-b border-white/10 text-stone hover:text-paper hover:bg-white/5">What it reveals</a>
+    <a href="#credibility" class="block px-6 py-4 border-b border-white/10 text-stone hover:text-paper hover:bg-white/5">Credibility</a>
+    <a href="#partners" class="block px-6 py-4 border-b border-white/10 text-stone hover:text-paper hover:bg-white/5">Partners</a>
+    <a href="news.html" class="block px-6 py-4 text-stone hover:text-paper hover:bg-white/5">News</a>
+  </nav>
 </header>
 
 <!-- ============================== HERO ============================== -->
@@ -210,18 +226,18 @@ tailwind.config={theme:{extend:{
       <div class="lab text-white/70 mt-12 rv rv-d3">10–20M DALYs lost annually to late detection</div>
     </div>
     <div class="px-6 md:px-16 sec rv rv-d1">
-      <div class="grid grid-cols-[1fr_auto_auto] gap-x-8 text-base md:text-lg">
+      <div class="grid grid-cols-[1fr_auto_auto] gap-x-3 sm:gap-x-8 text-sm sm:text-base md:text-lg">
         <div class="contents lab text-white/75"><span class="py-3">Condition</span><span class="py-3 text-right">Screened</span><span class="py-3 text-right">Avoidable</span></div>
         <div class="col-span-3 border-t border-white/25"></div>
-        <div class="contents"><span class="py-6 font-medium">Diabetes</span><span class="py-6 text-right text-white/80">20–25%</span><span class="py-6 text-right disp text-2xl md:text-3xl tnum" style="font-weight:600">400–600K</span></div>
+        <div class="contents"><span class="py-4 sm:py-6 font-medium">Diabetes</span><span class="py-4 sm:py-6 text-right text-white/80">20–25%</span><span class="py-4 sm:py-6 text-right disp text-lg sm:text-2xl md:text-3xl tnum" style="font-weight:600">400–600K</span></div>
         <div class="col-span-3 border-t border-white/25"></div>
-        <div class="contents"><span class="py-6 font-medium">Chronic kidney</span><span class="py-6 text-right text-white/80">&lt;5%</span><span class="py-6 text-right disp text-2xl md:text-3xl tnum" style="font-weight:600">150–250K</span></div>
+        <div class="contents"><span class="py-4 sm:py-6 font-medium">Chronic kidney</span><span class="py-4 sm:py-6 text-right text-white/80">&lt;5%</span><span class="py-4 sm:py-6 text-right disp text-lg sm:text-2xl md:text-3xl tnum" style="font-weight:600">150–250K</span></div>
         <div class="col-span-3 border-t border-white/25"></div>
-        <div class="contents"><span class="py-6 font-medium">UTI · women</span><span class="py-6 text-right text-white/80">Variable</span><span class="py-6 text-right disp text-2xl md:text-3xl tnum" style="font-weight:600">100–150K</span></div>
+        <div class="contents"><span class="py-4 sm:py-6 font-medium">UTI · women</span><span class="py-4 sm:py-6 text-right text-white/80">Variable</span><span class="py-4 sm:py-6 text-right disp text-lg sm:text-2xl md:text-3xl tnum" style="font-weight:600">100–150K</span></div>
         <div class="col-span-3 border-t border-white/25"></div>
-        <div class="contents"><span class="py-6 font-medium">Liver / bilirubin</span><span class="py-6 text-right text-white/80">&lt;5%</span><span class="py-6 text-right disp text-2xl md:text-3xl tnum" style="font-weight:600">10–30K</span></div>
+        <div class="contents"><span class="py-4 sm:py-6 font-medium">Liver / bilirubin</span><span class="py-4 sm:py-6 text-right text-white/80">&lt;5%</span><span class="py-4 sm:py-6 text-right disp text-lg sm:text-2xl md:text-3xl tnum" style="font-weight:600">10–30K</span></div>
         <div class="col-span-3 border-t-2 border-white"></div>
-        <div class="contents"><span class="py-6 font-bold">Σ Total preventable</span><span></span><span class="py-6 text-right disp text-3xl md:text-4xl tnum" style="font-weight:600">1.4M+</span></div>
+        <div class="contents"><span class="py-4 sm:py-6 font-bold">Σ Total preventable</span><span></span><span class="py-4 sm:py-6 text-right disp text-xl sm:text-3xl md:text-4xl tnum" style="font-weight:600">1.4M+</span></div>
       </div>
     </div>
   </div>
@@ -327,39 +343,39 @@ tailwind.config={theme:{extend:{
     <div class="mt-20 rv rv-d1"><div class="lab text-stone">Team</div></div>
     <div class="lab text-stone/70 mt-8 rv rv-d1">Founders</div>
     <div class="grid md:grid-cols-4 gap-px bg-white/10 mt-4 border-2 border-white/15 rv rv-d2">
-      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center">
-        <div class="flex items-center gap-5"><img src="maninder 2.jpeg" alt="Maninder Pal Singh Sethi" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div><div class="font-bold text-lg leading-snug">Maninder Pal Singh Sethi</div><div class="text-teal text-xs font-semibold mt-0.5">Co-founder &amp; CBO</div></div></div>
+      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center min-w-0">
+        <div class="flex items-center gap-5"><img src="maninder 2.jpeg" alt="Maninder Pal Singh Sethi" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div class="min-w-0"><div class="font-bold text-lg leading-snug">Maninder Pal Singh Sethi</div><div class="text-teal text-xs font-semibold mt-0.5">Co-founder &amp; CBO</div></div></div>
         <div class="text-stone text-xs mt-4 leading-relaxed">Postgraduate in Chemistry (Hons School), Punjab University Chandigarh · 44 years in Business Development of capital goods · 10 years dedicated to AI enabled Lab Testing Solutions</div>
       </div>
-      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center">
-        <div class="flex items-center gap-5"><img src="alok.jpeg" alt="Alok Kulshrestha" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div><div class="font-bold text-lg leading-snug">Alok Kulshrestha</div><div class="text-teal text-xs font-semibold mt-0.5">Co-founder &amp; COO</div></div></div>
+      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center min-w-0">
+        <div class="flex items-center gap-5"><img src="alok.jpeg" alt="Alok Kulshrestha" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div class="min-w-0"><div class="font-bold text-lg leading-snug">Alok Kulshrestha</div><div class="text-teal text-xs font-semibold mt-0.5">Co-founder &amp; COO</div></div></div>
         <div class="text-stone text-xs mt-4 leading-relaxed">Postgraduate from IET Lucknow · Over five years of experience in technical sales and AI based solutions</div>
       </div>
-      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center">
-        <div class="flex items-center gap-5"><img src="abhishek.jpeg" alt="Abhishek Chaturvedi" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div><div class="font-bold text-lg leading-snug">Abhishek Chaturvedi</div><div class="text-teal text-xs font-semibold mt-0.5">Co-founder &amp; CPO</div></div></div>
+      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center min-w-0">
+        <div class="flex items-center gap-5"><img src="abhishek.jpeg" alt="Abhishek Chaturvedi" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div class="min-w-0"><div class="font-bold text-lg leading-snug">Abhishek Chaturvedi</div><div class="text-teal text-xs font-semibold mt-0.5">Co-founder &amp; CPO</div></div></div>
         <div class="text-stone text-xs mt-4 leading-relaxed">Postgraduate in Biochemistry · 5 years of professional experience, including AI based product development and pharmaceutical sales</div>
       </div>
-      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center">
-        <div class="flex items-center gap-5"><img src="priyanka.jpeg" alt="Priyanka Priyadarshini" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div><div class="font-bold text-lg leading-snug">Priyanka Priyadarshini</div><div class="text-teal text-xs font-semibold mt-0.5">Co-founder &amp; CGO</div></div></div>
+      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center min-w-0">
+        <div class="flex items-center gap-5"><img src="priyanka.jpeg" alt="Priyanka Priyadarshini" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div class="min-w-0"><div class="font-bold text-lg leading-snug">Priyanka Priyadarshini</div><div class="text-teal text-xs font-semibold mt-0.5">Co-founder &amp; CGO</div></div></div>
       </div>
     </div>
 
     <div class="lab text-stone/70 mt-12 rv rv-d1">Development Team</div>
     <div class="grid md:grid-cols-4 gap-px bg-white/10 mt-4 border-2 border-white/15 rv rv-d2">
-      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center">
-        <div class="flex items-center gap-5"><img src="pranav-asthana.jpeg" alt="Pranav Asthana" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div><div class="font-bold text-lg leading-snug">Pranav Asthana</div><div class="text-teal text-xs font-semibold mt-0.5">Co-Inventor &amp; Platform Head</div></div></div>
+      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center min-w-0">
+        <div class="flex items-center gap-5"><img src="pranav-asthana.jpeg" alt="Pranav Asthana" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div class="min-w-0"><div class="font-bold text-lg leading-snug">Pranav Asthana</div><div class="text-teal text-xs font-semibold mt-0.5">Co-Inventor &amp; Platform Head</div></div></div>
         <div class="text-stone text-xs mt-4 leading-relaxed">Cofounded Checko, Upjao · 20+ research papers, 10+ patents · Ex-Intel, IIT Kanpur</div>
       </div>
-      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center">
-        <div class="flex items-center gap-5"><img src="ritu-mishra.jpeg" alt="Ritu Mishra" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div><div class="font-bold text-lg leading-snug">Ritu Mishra</div><div class="text-teal text-xs font-semibold mt-0.5">Co-Inventor &amp; Head of Innovation</div></div></div>
+      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center min-w-0">
+        <div class="flex items-center gap-5"><img src="ritu-mishra.jpeg" alt="Ritu Mishra" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div class="min-w-0"><div class="font-bold text-lg leading-snug">Ritu Mishra</div><div class="text-teal text-xs font-semibold mt-0.5">Co-Inventor &amp; Head of Innovation</div></div></div>
         <div class="text-stone text-xs mt-4 leading-relaxed">Cofounded Upjao · 8 years building deep tech products · Ex-researcher at NCFlexe, IIT Kanpur</div>
       </div>
-      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center">
-        <div class="flex items-center gap-5"><img src="pramod.png" alt="Pramod Prasad" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div><div class="font-bold text-lg leading-snug">Pramod Prasad</div><div class="text-teal text-xs font-semibold mt-0.5">RevOps Leader</div></div></div>
+      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center min-w-0">
+        <div class="flex items-center gap-5"><img src="pramod.png" alt="Pramod Prasad" class="w-16 h-16 rounded-full object-cover border border-white/15 shrink-0"><div class="min-w-0"><div class="font-bold text-lg leading-snug">Pramod Prasad</div><div class="text-teal text-xs font-semibold mt-0.5">RevOps Leader</div></div></div>
         <div class="text-stone text-xs mt-4 leading-relaxed">30+ years of technology business leadership · Built $150M+ business portfolios · Ex-Cisco, Motorola, Ericsson, IIFT</div>
       </div>
-      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center">
-        <div class="flex items-center gap-5"><div class="w-16 h-16 rounded-full bg-white/5 border border-white/15 shrink-0 grid place-items-center text-stone font-bold text-lg">MB</div><div><div class="font-bold text-lg leading-snug">Mohini Behera</div><div class="text-teal text-xs font-semibold mt-0.5">Co-Inventor &amp; Chief Scientist</div></div></div>
+      <div class="bg-mist p-9 hover:bg-[#0F3D6E] transition-colors flex flex-col justify-center min-w-0">
+        <div class="flex items-center gap-5"><div class="w-16 h-16 rounded-full bg-white/5 border border-white/15 shrink-0 grid place-items-center text-stone font-bold text-lg">MB</div><div class="min-w-0"><div class="font-bold text-lg leading-snug">Mohini Behera</div><div class="text-teal text-xs font-semibold mt-0.5">Co-Inventor &amp; Chief Scientist</div></div></div>
         <div class="text-stone text-xs mt-4 leading-relaxed">Cofounded Upjao · Developed 10+ AI products for large enterprises · IIT Jodhpur, NIT Rourkela</div>
       </div>
     </div>
@@ -422,11 +438,11 @@ tailwind.config={theme:{extend:{
       <a href="#" aria-label="X" class="w-10 h-10 rounded-full border border-white/15 grid place-items-center text-white/60 hover:text-white hover:border-white/40 transition-colors"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M18.9 3H22l-7.5 8.57L23 21h-6.87l-5.38-6.6L4.6 21H1.5l8.02-9.17L1 3h7.05l4.87 6.03L18.9 3zm-1.2 16.17h1.7L7.4 4.75h-1.8l12.1 14.42z"/></svg></a>
     </div>
     <div class="grid md:grid-cols-6 gap-10 mt-12 text-base">
-      <div class="md:col-span-2 rv"><div class="font-bold text-lg">Lab-grade screening, on any phone.</div><p class="text-white/65 mt-3 max-w-[34ch] leading-relaxed">India's first universal AI-powered diagnostic strip-reading platform. Developed in India, built for India.</p><div class="lab text-white/30 mt-5">Ahmedabad · Bhubaneshwar · Bombay · Lucknow · Mohali · Washington DC</div></div>
-      <div class="rv rv-d1"><div class="lab mb-4 text-teal">Platform</div><div class="space-y-3 text-white/70"><a href="#how" class="flink block">How it works</a><a href="#card" class="flink block">BTCardX™</a><a href="#reveals" class="flink block">What it reveals</a><a href="#deploy" class="flink block">Deployment channels</a></div></div>
-      <div class="rv rv-d2"><div class="lab mb-4 text-teal">Trust</div><div class="space-y-3 text-white/70"><a href="#credibility" class="flink block">NABL validation</a><span class="flink block">Patent filed</span><span class="flink block">Blockchain-verified reports</span></div></div>
-      <div class="rv rv-d2"><div class="lab mb-4 text-teal">Press</div><div class="space-y-3 text-white/70"><a href="news.html" class="flink block">News</a><a href="articles.html" class="flink block">Articles</a></div></div>
-      <div class="rv rv-d3"><div class="lab mb-4 text-teal">Contact</div><div class="space-y-3 text-white/70"><a href="mailto:mpsethi@billiontests.ai" class="flink block">mpsethi@billiontests.ai</a><a href="mailto:partnership@billiontests.ai" class="flink block">partnership@billiontests.ai</a><a href="tel:+919417029446" class="flink block">Maninder Pal Singh Sethi (CBO) · +91 94170 29446</a><a href="https://billiontests.ai" class="flink block">billiontests.ai ↗</a></div></div>
+      <div class="md:col-span-2 min-w-0 rv"><div class="font-bold text-lg">Lab-grade screening, on any phone.</div><p class="text-white/65 mt-3 max-w-[34ch] leading-relaxed">India's first universal AI-powered diagnostic strip-reading platform. Developed in India, built for India.</p><div class="lab text-white/30 mt-5 break-words">Ahmedabad · Bhubaneshwar · Bombay · Lucknow · Mohali · Washington DC</div></div>
+      <div class="min-w-0 rv rv-d1"><div class="lab mb-4 text-teal">Platform</div><div class="space-y-3 text-white/70"><a href="#how" class="flink block">How it works</a><a href="#card" class="flink block">BTCardX™</a><a href="#reveals" class="flink block">What it reveals</a><a href="#deploy" class="flink block">Deployment channels</a></div></div>
+      <div class="min-w-0 rv rv-d2"><div class="lab mb-4 text-teal">Trust</div><div class="space-y-3 text-white/70"><a href="#credibility" class="flink block">NABL validation</a><span class="flink block">Patent filed</span><span class="flink block">Blockchain-verified reports</span></div></div>
+      <div class="min-w-0 rv rv-d2"><div class="lab mb-4 text-teal">Press</div><div class="space-y-3 text-white/70"><a href="news.html" class="flink block">News</a><a href="articles.html" class="flink block">Articles</a></div></div>
+      <div class="min-w-0 rv rv-d3"><div class="lab mb-4 text-teal">Contact</div><div class="space-y-3 text-white/70"><a href="mailto:mpsethi@billiontests.ai" class="flink block break-words">mpsethi@billiontests.ai</a><a href="mailto:partnership@billiontests.ai" class="flink block break-words">partnership@billiontests.ai</a><a href="tel:+919417029446" class="flink block break-words">Maninder Pal Singh Sethi (CBO) · +91 94170 29446</a><a href="https://billiontests.ai" class="flink block break-words">billiontests.ai ↗</a></div></div>
     </div>
     <div class="mt-12 pt-10 border-t border-white/10 flex flex-col sm:flex-row items-center sm:items-start gap-5 rv rv-d3">
       <div class="w-20 h-20 shrink-0 bg-white p-1.5 rounded"><img src="qr.jpeg" alt="Scan to download the BillionTests™ app" class="w-full h-full object-contain"></div>
@@ -448,6 +464,13 @@ tailwind.config={theme:{extend:{
   document.getElementById('qr-close')?.addEventListener('click',()=>document.getElementById('qr-widget').style.display='none');
   const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
   const nav=document.getElementById('nav'),prog=document.getElementById('prog');
+  const menuToggle=document.getElementById('menu-toggle'),mobileNav=document.getElementById('mobile-nav');
+  const menuIconOpen=document.getElementById('menu-icon-open'),menuIconClose=document.getElementById('menu-icon-close');
+  function closeMobileNav(){mobileNav.classList.add('hidden');mobileNav.classList.remove('flex');menuIconOpen.classList.remove('hidden');menuIconClose.classList.add('hidden');menuToggle.setAttribute('aria-expanded','false');}
+  function openMobileNav(){mobileNav.classList.remove('hidden');mobileNav.classList.add('flex');menuIconOpen.classList.add('hidden');menuIconClose.classList.remove('hidden');menuToggle.setAttribute('aria-expanded','true');}
+  menuToggle?.addEventListener('click',()=>{mobileNav.classList.contains('hidden')?openMobileNav():closeMobileNav();});
+  mobileNav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMobileNav));
+  matchMedia('(min-width:1024px)').addEventListener('change',e=>{if(e.matches)closeMobileNav();});
   addEventListener('scroll',()=>{
     nav.classList.toggle('scrolled',scrollY>10);
     const h=document.documentElement;

@@ -32,15 +32,26 @@ tailwind.config={theme:{extend:{
 <body class="text-paper antialiased">
 
 <header class="fixed top-0 inset-x-0 z-50" style="background:rgba(10,25,48,.85);backdrop-filter:blur(12px)">
-  <div class="max-w-[1240px] mx-auto px-6 h-[76px] flex items-center justify-between">
-    <a href="index.html#top" class="disp text-2xl" style="font-weight:600">Billion<span class="text-teal">Tests</span><span class="text-teal text-sm align-super">™</span></a>
+  <div class="max-w-[1240px] mx-auto px-6 h-[76px] flex items-center justify-between gap-3">
+    <a href="index.html#top" class="disp text-xl sm:text-2xl shrink-0" style="font-weight:600">Billion<span class="text-teal">Tests</span><span class="text-teal text-sm align-super">™</span></a>
     <nav class="hidden md:flex items-center gap-8 text-[15px] font-medium text-stone">
       <a href="index.html" class="u-link hover:text-paper">Home</a>
       <a href="news.html" class="u-link hover:text-paper">News</a>
       <a href="articles.html" class="u-link text-paper active">Articles</a>
     </nav>
-    <a href="contact.html" class="btn bg-teal text-white px-6 py-3 text-[15px] font-semibold">Book a demo</a>
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+      <a href="contact.html" class="btn bg-teal text-white px-3.5 sm:px-6 py-2.5 sm:py-3 text-[13px] sm:text-[15px] font-semibold whitespace-nowrap"><span class="sm:hidden">Demo</span><span class="hidden sm:inline">Book a demo</span></a>
+      <button id="menu-toggle" aria-label="Open menu" aria-expanded="false" class="md:hidden w-10 h-10 shrink-0 grid place-items-center border border-white/15 rounded-lg text-paper">
+        <svg id="menu-icon-open" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg id="menu-icon-close" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
   </div>
+  <nav id="mobile-nav" class="md:hidden hidden flex-col bg-ink border-t border-white/10">
+    <a href="index.html" class="block px-6 py-4 border-b border-white/10 text-stone hover:text-paper hover:bg-white/5">Home</a>
+    <a href="news.html" class="block px-6 py-4 border-b border-white/10 text-stone hover:text-paper hover:bg-white/5">News</a>
+    <a href="articles.html" class="block px-6 py-4 text-paper bg-white/5">Articles</a>
+  </nav>
 </header>
 
 <section class="pt-40 pb-28 min-h-[70vh] flex items-center">
@@ -51,6 +62,15 @@ tailwind.config={theme:{extend:{
     <div class="mt-10"><a href="index.html" class="btn border-2 border-white/20 px-8 py-4 inline-block font-semibold text-base bg-white/5 text-paper">← Back to home</a></div>
   </div>
 </section>
+
+<script>
+  const menuToggle=document.getElementById('menu-toggle'),mobileNav=document.getElementById('mobile-nav');
+  const menuIconOpen=document.getElementById('menu-icon-open'),menuIconClose=document.getElementById('menu-icon-close');
+  function closeMobileNav(){mobileNav.classList.add('hidden');mobileNav.classList.remove('flex');menuIconOpen.classList.remove('hidden');menuIconClose.classList.add('hidden');menuToggle.setAttribute('aria-expanded','false');}
+  function openMobileNav(){mobileNav.classList.remove('hidden');mobileNav.classList.add('flex');menuIconOpen.classList.add('hidden');menuIconClose.classList.remove('hidden');menuToggle.setAttribute('aria-expanded','true');}
+  menuToggle?.addEventListener('click',()=>{mobileNav.classList.contains('hidden')?openMobileNav():closeMobileNav();});
+  matchMedia('(min-width:768px)').addEventListener('change',e=>{if(e.matches)closeMobileNav();});
+</script>
 
 <footer class="bg-ink text-paper border-t border-white/10">
   <div class="max-w-[1240px] mx-auto px-6 py-10 flex flex-wrap justify-between gap-3 lab text-white/30">
