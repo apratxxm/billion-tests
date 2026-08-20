@@ -21,7 +21,7 @@ A marketing website for **BillionTests™**, VisionExcl Technologies' urine-stri
 
 ## 3. `index.html`, section by section (top to bottom)
 
-1. **Nav + hero** — sticky nav, scroll-progress bar, headline, 4-stat row, two CTA buttons, scrolling logo/credibility marquee.
+1. **Nav + hero** — sticky nav, scroll-progress bar, headline, 4-stat row, two CTA buttons, scrolling logo/credibility marquee. Below the desktop breakpoint, a hamburger button toggles a mobile nav panel with the same links.
 2. **How it works** — "Dip. Scan. Interpret." Three cards with real product photos.
 3. **The BTCardX™** — the calibration-card innovation, a real photo of the physical card (shrunk to 300px per founder feedback), a real demo video (`how-to-use-demo.mp4`, capped to `max-w-sm`), and a "trained & proven" stat row.
 4. **The crisis** — the "1.4M+" preventable-deaths statistic, full-bleed, with a per-condition breakdown table (diabetes, CKD, UTI, liver).
@@ -41,6 +41,7 @@ There is no CMS — every word, number, and email is hardcoded in the HTML. Edit
 - **Contact info** appears in three places that must be kept in sync by hand: the Demo+Partners section, the footer's Contact column, and `contact.html`'s left column. There is no single source of truth for this — a search-and-replace across all `.html` files is the safest way to change an email or phone number.
 - **Primary contact email** is `mpsethi@billiontests.ai` (Maninder's own address). The footer's Contact column was trimmed to just **two** addresses — `mpsethi@billiontests.ai` and `partnership@billiontests.ai` — per direct founder instruction; the earlier `sales@` and `collaboration@` addresses were removed, not just hidden.
 - **Nav spacing at laptop widths (1024–1279px)** — the desktop nav's link gap and font size step down (`gap-4`/`text-[13px]`) below the 1280px breakpoint and back up (`gap-8`/`text-[15px]`) above it, so the links never sit flush against the logo or the "Book a demo" button. If more nav links are ever added, re-check this range first — it's the tightest fit on the page.
+- **Mobile nav** — on `index.html`, `news.html`, and `articles.html`, a hamburger button (`id="menu-toggle"` on the smaller pages, a similarly-named button on `index.html`) toggles a `<nav id="mobile-nav">` panel between `hidden` and `flex` via a few lines of vanilla JS at the bottom of each file. Adding or renaming a nav link means editing it in **both** the desktop `<nav>` and the mobile `#mobile-nav` panel — they're two separate lists of links, not one shared component. `contact.html` has no nav links to begin with (just a "back to site" link), so it has no hamburger.
 - **Team grid** — each tier (Founders / Development Team / Advisors & Mentors) is a CSS grid of `<div>` cells. To add someone with a photo, copy an existing photo-cell's markup as a template. Every founder-tier cell now follows the same pattern: photo + name/title row, then a bio paragraph below.
 - **Nav and footer links** are anchor links (`#how`, `#card`, `#crisis`, etc.) pointing at `id=` attributes further down the same page. Renaming a section's `id` silently breaks every link pointing at it — no error, the link just stops scrolling anywhere.
 - **Images** are referenced by plain relative filename (`abhishek.jpeg`, `qr.jpeg`, etc.) sitting next to the HTML. This means **the HTML files can't be shared on their own** — email or WhatsApp-ing just `index.html` breaks every photo. Zip the whole folder, or share a hosted link, to keep images intact.
@@ -55,7 +56,6 @@ There is no CMS — every word, number, and email is hardcoded in the HTML. Edit
 - **`contact.html`'s form** doesn't submit to any server — it opens the visitor's email client pre-filled via `mailto:`. This works but depends on the visitor having a configured email client, and produces no record on your end unless the email actually gets sent.
 
 **Known gaps, not yet addressed:**
-- **No mobile hamburger nav.** `index.html`'s nav link list is `hidden` below the 1024px breakpoint with no alternative — on a phone, a visitor sees only the logo and "Book a demo" button, with no way to jump to a section. Since phones are this product's primary audience, this is the single highest-priority fix outstanding.
 - **Priyanka Priyadarshini has no bio line** — her founder-grid cell shows photo/name/title only. No bio text has been supplied for her at any point.
 - **No page-preview metadata.** No `<meta name="description">`, no Open Graph tags — sharing the site link in WhatsApp or elsewhere currently shows a bare URL with no title/image/blurb. (A favicon now exists — see above — but that's the browser-tab icon, not the link-preview card.)
 - **No legal pages.** No Privacy Policy or Terms of Service, despite the product handling personal health data and actively courting hospital/CSR partners who will look for this.

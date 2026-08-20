@@ -106,11 +106,22 @@ Driven by a fourth document, `BillionTests_WEBSITE_CHANGES_18_08_26.docx`, share
   - **Added a favicon** (`favicon.svg`) — a simple "B" monogram using the site's own `ink` background and `teal` accent colours, linked from all 4 pages. No favicon existed before this.
   - Re-audited all three prior docx rounds against the live code (grepped for leftover `.AI` branding, `info@billiontests` addresses, and "Mumbai" in the address list) — confirmed zero leftovers; everything from Phases 5–7 was already correctly in place.
 
+## Phase 11 — Mobile hamburger nav and responsive overflow fixes
+
+Founder request: fix the navbar spacing/margins issue, then a full mobile-responsiveness pass. This closed out the "no mobile nav" gap that had been flagged as the top-priority open item since Phase 6.
+
+- **`e8bb99e`** (2026-08-18):
+  - Added a mobile hamburger menu to `index.html`, `news.html`, and `articles.html` — each gets a toggle button that switches a `<nav id="mobile-nav">` panel between hidden and visible, with the same links as the desktop nav on that page. (`contact.html` has no nav links to toggle, so no hamburger was added there.)
+  - Fixed header spacing so the logo, "Book a demo" button, and new hamburger button don't collide at narrow widths.
+  - Tightened the crisis-section stats table for mobile to stop it overflowing the viewport.
+  - Fixed a `min-width: auto` flexbox bug on the Founders and Development Team cards: a long name (Priyanka Priyadarshini, in particular) could force its card wider than its grid track at tablet width (768px) because the text wrapper had no `min-w-0` to let it shrink and wrap. Applied `min-w-0` to both the card container and the text wrapper across all 8 affected cards.
+  - Applied the same `min-w-0` fix to the footer's 6-column link grid, which had the identical bug.
+  - Verified zero real horizontal-overflow elements across all 4 pages at both mobile (375px) and tablet (768px) widths, using the browser tool's device-emulation presets (a manual, non-preset resize to exactly 320px was found to desync the tool's own `window.innerWidth` from the real layout viewport mid-audit — a testing-tool artifact, not a site bug; re-confirmed clean with the proper presets).
+
 ---
 
 ## Still open as of this entry (not yet actioned — see `README.md` §5 for current detail)
 
-- No mobile hamburger navigation on `index.html`.
 - No real App Store / Google Play listing to link the footer's Google Play badge to (and no iOS build yet to justify restoring the App Store badge).
 - No real Android app screenshots for the how-it-works cards.
 - No event/attendance photography.
