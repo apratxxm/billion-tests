@@ -8,9 +8,9 @@ This folder used to be split across 5 separate files. It's now two: this one (ev
 
 ## 1. What this is, in one paragraph
 
-A marketing website for **BillionTests™**, VisionExcl Technologies' urine-strip AI diagnostics platform. It is **4 static HTML files** — `index.html` (the main page), `contact.html`, `news.html`, `articles.html` — sitting in one folder next to their images and one video. There is no framework, no build step, no server-side code, no database, and **no backend of any kind**. "Deploying" this site means copying these files and their images to wherever `billiontests.ai` / `billiontests.com` is hosted. Nothing in this folder controls that hosting — see §6.
+A marketing website for **BillionTests™**, VisionExcl Technologies' urine-strip AI diagnostics platform. It is **6 static HTML files** — `index.html` (the main page), `contact.html`, `news.html`, `articles.html`, `privacy.html`, `terms.html` — sitting in one folder next to their images and one video. There is no framework, no build step, no server-side code, no database, and **no backend of any kind**. "Deploying" this site means copying these files and their images to wherever `billiontests.ai` / `billiontests.com` is hosted. Nothing in this folder controls that hosting — see §6.
 
-## 2. The 4 pages
+## 2. The 6 pages
 
 | Page | Purpose |
 |---|---|
@@ -18,6 +18,8 @@ A marketing website for **BillionTests™**, VisionExcl Technologies' urine-stri
 | `contact.html` | A form (name/email/phone/org/reason/message) that opens the visitor's email client via a `mailto:` link — **it does not submit anywhere itself**, there is no form backend. |
 | `news.html` | Two real press clippings (Dainik Jagran, one English outlet) about Pranav Asthana's IIT Kanpur urine analyzer work. |
 | `articles.html` | Placeholder "coming soon" page for future long-form content. |
+| `privacy.html` | Privacy Policy — content adapted from Visotonics' own privacy policy (same parent company, VisionExcl Technologies Pvt. Ltd.), rebranded and extended with health-screening-specific data categories. |
+| `terms.html` | Terms & Conditions — same adaptation approach, extended with a "not a substitute for medical advice" clause specific to a diagnostics product. |
 
 ## 3. `index.html`, section by section (top to bottom)
 
@@ -29,9 +31,9 @@ A marketing website for **BillionTests™**, VisionExcl Technologies' urine-stri
 6. **No cold chain / no wait** — four value tiles contrasting urine screening with blood-based diagnostics.
 7. **What it reveals** — 9-row list of every parameter the strip reads and what each flags.
 8. **Two ways to deploy** — App-only vs. plug-and-play Edge Device.
-9. **Credibility / team** — a pull-quote stat, then four tiers: **Founders** (4, all with photo + bio), **Development Team** (4, with bios pulled from visotonics.com), **Advisors & Mentors** (8), plus institutional credibility marks.
+9. **Credibility / team** — a pull-quote stat, then four tiers: **Founders** (4, all with photo + bio), **Development Team** (4, all with photo + bio, pulled from visotonics.com), **Advisors & Mentors** (8, all with photo), plus institutional credibility marks.
 10. **Demo + Partners** — combined section: left half books a demo (phone + `mpsethi@billiontests.ai`), right half recruits partners (manufacturers, hospitals, diagnostic centres, foundations).
-11. **Footer** — wordmark, tagline, social icons (unlinked, see §5), link columns, contact column (email/phone/city list), a Google Play badge (decorative, see §5 — no App Store badge, see below), QR code (real, scannable), copyright.
+11. **Footer** — wordmark, tagline, social icons (unlinked, see §5), link columns (Platform / Trust — now including Privacy Policy and Terms & Conditions / Press), contact column (email/phone/city list), a Google Play badge (now a real link, see §5 — no App Store badge, see below), QR code (real, scannable), copyright.
 
 ## 4. How to edit content
 
@@ -48,20 +50,25 @@ There is no CMS — every word, number, and email is hardcoded in the HTML. Edit
 
 ## 5. What's real vs. placeholder right now
 
-**Real and live:** all copy and stats, the BTCardX™ photo, three how-it-works photos, all 4 founder photos+bios, 4 development-team photos+bios, 8 advisor entries, the real demo video (embedded), the real scannable QR code, phone number, primary + secondary emails, a favicon (`favicon.svg`, a "B" monogram in the site's own palette, linked from all 4 pages).
+**Real and live:** all copy and stats, the BTCardX™ photo, three how-it-works photos, all 4 founder photos+bios, 4 development-team photos+bios, 8 advisor entries, the real demo video (embedded), the real scannable QR code, phone number, primary + secondary emails, a favicon (`favicon.svg`, a "B" monogram in the site's own palette, linked from all 6 pages), **the Google Play badge now links to the real listing** (`play.google.com/store/apps/details?id=com.billiontests.app`, verified via search to be the actual BillionTests app), a full Privacy Policy and Terms & Conditions, and page-preview metadata (description, Open Graph, Twitter Card) on every page.
 
 **Decorative / not functional — flagged, not hidden:**
-- **The Google Play badge** in the footer is an image only, not a link — no real Play Store listing exists yet. There is deliberately **no App Store badge** — it was removed on request since the app isn't iOS-ready yet; re-add `badge-appstore.png` (still in the folder, just unreferenced) once an iOS build exists.
+- There is deliberately **no App Store badge** — it was removed on request since the app isn't iOS-ready yet; `badge-appstore.png` is still in the folder, just unreferenced, for whenever an iOS build exists.
 - **Social icons** (LinkedIn, Facebook, Instagram, X) in the footer all point to `#` — no real profile URLs have been provided.
 - **`contact.html`'s form** doesn't submit to any server — it opens the visitor's email client pre-filled via `mailto:`. This works but depends on the visitor having a configured email client, and produces no record on your end unless the email actually gets sent.
+- **Open Graph / Twitter Card `og:url` and `og:image` values assume the site is live at `https://billiontests.ai`** — see §6, this has never been confirmed. If the site ends up hosted at a different domain, every `<link rel="canonical">` and `og:url`/`og:image` tag across all 6 pages (plus `sitemap.xml` and `robots.txt`) needs a find-and-replace.
 
 **Known gaps, not yet addressed:**
-- **Priyanka Priyadarshini has no bio line** — her founder-grid cell shows photo/name/title only. No bio text has been supplied for her at any point.
-- **No page-preview metadata.** No `<meta name="description">`, no Open Graph tags — sharing the site link in WhatsApp or elsewhere currently shows a bare URL with no title/image/blurb. (A favicon now exists — see above — but that's the browser-tab icon, not the link-preview card.)
-- **No legal pages.** No Privacy Policy or Terms of Service, despite the product handling personal health data and actively courting hospital/CSR partners who will look for this.
-- **Non-website materials untouched.** The letterhead, brochure, pitch deck, and visiting card in this folder (see §7) have never been edited as part of this work — only the 4 website pages have been. If founder feedback says "update everywhere," it has only ever been applied to the site.
+- **Non-website materials untouched.** The letterhead, brochure, pitch deck, and visiting card in this folder (see §7) have never been edited as part of this work — only the 6 website pages have been. If founder feedback says "update everywhere," it has only ever been applied to the site.
 
-## 6. Hosting, deployment, and backend — the honest answer
+## 6. Legal pages and SEO
+
+- **`privacy.html` / `terms.html`** — full Privacy Policy and Terms & Conditions, ported from Visotonics' own legal pages (`Visotonics/new/visotonics/app/legal/`) since BillionTests and Visotonics share the same parent company, VisionExcl Technologies Pvt. Ltd. The copy was rebranded to BillionTests and extended with clauses specific to a diagnostics product — a "Health Screening Data" category in the privacy policy, and a "Not a Substitute for Medical Advice" clause in the terms. Both pages are linked from every page's footer.
+- **Every page has real SEO metadata now**: a unique `<meta name="description">`, a `<link rel="canonical">`, Open Graph tags (`og:title`, `og:description`, `og:image`, `og:url`), and matching Twitter Card tags. All of them share one generated share-preview image, `og-image.png` (1200×630, built from the site's own colour/type system — no real photography exists for this purpose yet).
+- **`robots.txt`** allows all crawlers and points to `sitemap.xml`. **`sitemap.xml`** lists all 6 pages with rough priority weighting. Neither file does anything until the site is actually live at a crawlable domain.
+- **This all assumes the live domain is `billiontests.ai`** — every canonical URL, `og:url`, and the sitemap are hardcoded to that. This has never been confirmed (see §7) and needs a project-wide find-and-replace if it turns out to be wrong.
+
+## 7. Hosting, deployment, and backend — the honest answer
 
 **There is no backend.** No server code, no database, no API, no user accounts, no credentials of any kind belong to this project. Every page is a static file that a browser renders entirely on its own, pulling Tailwind CSS and Google Fonts from public CDNs at load time. There is nothing to secure, patch, or provision beyond wherever the static files are hosted.
 
@@ -73,30 +80,35 @@ There is no CMS — every word, number, and email is hardcoded in the HTML. Edit
 
 **To hand someone the raw files** instead of a live link (email, WhatsApp, USB): zip the whole folder, not just the HTML. Every photo is a relative filename reference; the HTML alone renders with every image broken.
 
-## 7. Supporting files in this folder
+## 8. Supporting files in this folder
 
 These are the source materials the site's copy, photos, and bios were pulled from — kept in the repo for traceability, not referenced by any HTML file:
 
 | File | What it is |
 |---|---|
-| `BT_march26 (1).pptx`, `BT_march26_Original PPT.pptx`, `BT_march26_Changes suggested.pptx`, `BT_version_V3_12_08_2026.pptx` | Successive versions of the company pitch deck |
+| `BT_march26 (1).pptx`, `BT_march26_Original PPT.pptx`, `BT_march26_Changes suggested.pptx`, `BT_version_V3_12_08_2026.pptx`, `BT_Team_Intro_20-08-2026.pptx` | Successive versions of the company pitch deck / team-intro deck — the last is the authoritative source for the founder bios currently live on the site |
 | `BillionTests Brochure .pdf` | Print/digital brochure — **not edited as part of this work** |
 | `BillionTests_BCKIC_Proposal_v3.docx` | An earlier grant/incubation proposal document |
 | `WEBSITE CHANGES 13_08_26.docx`, `PPT ChangesUpdated (1).docx`, `BillionTests_Website_points_16-08-2026.docx`, `BillionTests_WEBSITE_CHANGES_18_08_26.docx` | Four rounds of written, founder-provided change requests — the authoritative source for most branding/content decisions logged in `CHANGELOG.md` |
 | `CityImaging Certificate.pdf`, `sample report from app.pdf` | Reference/supporting documents, not currently used on the site |
 | `qr.jpeg` | The real, live QR code shown on the site |
 | `how-to-use-demo.mp4` | The real product demo video embedded in the BTCardX™ section |
-| `favicon.svg` | The site's favicon — referenced by all 4 pages |
+| `favicon.svg` | The site's favicon — referenced by all 6 pages |
+| `og-image.png` | The generated 1200×630 social-share preview image, referenced by every page's Open Graph/Twitter Card tags |
+| `robots.txt`, `sitemap.xml` | SEO crawler files — see §6 |
+| `badge-googleplay.png` | The Google Play badge — had its outer light-gray keyline border made transparent (it was reading as an unwanted white halo against the dark footer) and is now wrapped in a link to the real Play Store listing |
 | `badge-appstore.png` | The App Store badge image — still in the folder but currently unreferenced by any page (see §5) |
+| `mentor-sudhindra-tatti.jpeg`, `mentor-shikha-dhawan.jpeg`, `mentor-sandeep-kumar.jpeg`, `mentor-sudheer-kumar.png`, `mentor-neeraj-garg.jpeg`, `mentor-ravi-vedururu.jpeg`, `mentor-amitabha-bandyopadhyay.jpeg`, `mentor-vinod-kurmi.jpeg` | The 8 Advisors & Mentors' photos, recovered from `BT_Team_Intro_20-08-2026.pptx` — each mapped to its person by exact slide shape position, not guessed |
+| `mohini-behera.png` | Mohini Behera's photo, recovered from the same deck |
 | `three-step-composite.jpeg`, `karan-bahuguna.jpeg`, `team-photo-unconfirmed-1/2.jpeg`, `sahil-reddy.jpeg`, `maninder.png`, `pramod.png` | Orphaned photos — superseded by newer versions or people removed from the final roster. Safe to ignore; kept rather than deleted in case they're needed again. |
 
-## 8. Design system, in brief
+## 9. Design system, in brief
 
 - **One accent colour** — Tailwind token `teal`, hex `#1E69D2`, defined once in the `tailwind.config` block at the top of each HTML file. Every blue element on every page — links, buttons, stat numbers, borders — pulls from this single token. Changing that one hex value re-colours the entire site at once.
 - **Fonts** — Fraunces (serif, display/headlines) + Inter (sans, body text and uppercase labels), both loaded from Google Fonts.
 - **Theme** — dark only, throughout (`ink` #0A1930 background, `paper` #F3F7FC text, `mist` #122A4D card surfaces, `stone` #A9B9D6 muted text). No light-mode section anywhere.
 - **Motion** — scroll-reveal fades, a count-up animation on stat numbers, a scroll-progress bar, all built with vanilla `IntersectionObserver` and respecting `prefers-reduced-motion` (disabled entirely for visitors who've asked their OS for reduced motion).
 
-## 9. The 5 old doc files, for reference
+## 10. The 5 old doc files, for reference
 
-`01-whats-here.md`, `02-content-and-editing.md`, `03-known-gaps.md`, `04-design-language.md`, and `05-run-and-ship.md` have been merged into this single file and deleted. Everything they covered is now in §3–§8 above. `CHANGELOG.md` is new — it didn't exist before this pass.
+`01-whats-here.md`, `02-content-and-editing.md`, `03-known-gaps.md`, `04-design-language.md`, and `05-run-and-ship.md` have been merged into this single file and deleted. Everything they covered is now in §3–§9 above. `CHANGELOG.md` is new — it didn't exist before this pass.
